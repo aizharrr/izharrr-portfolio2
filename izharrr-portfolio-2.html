@@ -1,0 +1,2242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mohammed Izhar Ahmed — Video Editor & Motion Designer</title>
+    <meta name="description"
+        content="Portfolio of Mohammed Izhar Ahmed — Video Editor, Colorist & Motion Designer. Crafting cinematic edits, motion graphics & visual stories.">
+
+    <!-- Google Fonts for Authentic Scrapbook Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Covered+By+Your+Grace&family=Kalam:wght@400;700&family=Permanent+Marker&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* =========================================================
+           ROOT DESIGN TOKENS & SYSTEM
+        ========================================================= */
+        :root {
+            --bg-paper: #e9e4d8;
+            --bg-paper-light: #fbf9f4;
+            --bg-paper-card: #f4efe4;
+            --bg-note: #fefce8;
+            --text-dark: #191817;
+            --text-muted: #5e5952;
+            --text-subtle: #8a8377;
+            --accent-davinci-edit: #3b82f6;
+            --accent-davinci-fusion: #f59e0b;
+            --accent-davinci-color: #ec4899;
+            --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-hand: 'Caveat', cursive;
+            --font-marker: 'Permanent Marker', cursive;
+            --font-kalam: 'Kalam', cursive;
+            --font-display: 'Space Grotesk', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: #e4dfd3;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            background-color: #e4dfd3;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* =========================================================
+           SCROLL TRACK (INDIVIDUAL ENTRANCE SEQUENCES)
+        ========================================================= */
+        .scroll-container {
+            position: relative;
+            width: 100%;
+            height: 600vh;
+            /* Smooth, distinct individual step entrances */
+        }
+
+        /* Sticky Frame pinned to viewport */
+        .viewport-frame {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100svh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e4dfd3;
+        }
+
+        /* The Scrapbook Paper Canvas (Single Frame Balanced Proportion) */
+        .scrapbook-canvas {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 1480px;
+            max-height: 100vh;
+            margin: 0 auto;
+            background-color: #ede8dc;
+            background-image:
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.45) 0%, rgba(195, 186, 170, 0.35) 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.015) 2px, rgba(0, 0, 0, 0.015) 4px);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.12) inset;
+            overflow: hidden;
+        }
+
+        /* Top decorative vintage pencil margin line */
+        .vintage-margin-line-top {
+            position: absolute;
+            top: clamp(24px, 3.8vh, 42px);
+            left: 30px;
+            right: 30px;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.16);
+            z-index: 2;
+            transform-origin: left;
+        }
+
+        /* Prominent notebook red margin guide line on the left */
+        .vintage-margin-line-left {
+            position: absolute;
+            top: 20px;
+            bottom: 20px;
+            left: clamp(45px, 5.8vw, 85px);
+            width: 2px;
+            background: rgba(220, 65, 65, 0.38);
+            z-index: 2;
+        }
+
+        /* =========================================================
+           TOP-BAR SCROLL HUD & QUICK ASSEMBLE BUTTON
+        ========================================================= */
+        .hud-controls {
+            position: fixed;
+            top: 12px;
+            right: 18px;
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .scroll-progress-badge {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #333;
+        }
+
+        .scroll-indicator-bar {
+            width: 36px;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .scroll-indicator-fill {
+            height: 100%;
+            width: 0%;
+            background: #111;
+            transition: width 0.08s linear;
+        }
+
+        .skip-btn {
+            background: #191817;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .skip-btn:hover {
+            transform: translateY(-2px);
+            background: #000;
+        }
+
+        /* =========================================================
+           INITIAL STATE: BLANK PAPER HINT PROMPT (SCROLL 0%)
+        ========================================================= */
+        .blank-scroll-hint {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            text-align: center;
+            pointer-events: none;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .blank-scroll-hint.hidden {
+            opacity: 0;
+            transform: translate(-50%, -40%) scale(0.9);
+        }
+
+        .hint-doodle-icon {
+            font-size: 38px;
+            margin-bottom: 8px;
+            animation: floatBob 2s ease-in-out infinite;
+        }
+
+        .hint-text-title {
+            font-family: var(--font-hand);
+            font-size: clamp(24px, 3vw, 38px);
+            font-weight: 700;
+            color: #2b2723;
+            margin-bottom: 4px;
+        }
+
+        .hint-text-sub {
+            font-size: clamp(11px, 1.1vw, 13px);
+            font-weight: 600;
+            color: #797166;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hint-scroll-arrow {
+            margin-top: 10px;
+            width: 22px;
+            height: 28px;
+            stroke: #333;
+            stroke-width: 2.5;
+            fill: none;
+            animation: arrowBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes floatBob {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes arrowBounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(8px);
+            }
+        }
+
+        /* =========================================================
+           SCRAPBOOK ELEMENTS BASE
+        ========================================================= */
+        .scrap-item {
+            position: absolute;
+            transition: transform 0.65s cubic-bezier(0.18, 0.89, 0.32, 1.15),
+                opacity 0.5s ease,
+                filter 0.5s ease;
+            will-change: transform, opacity;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scrap-item.assembled {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Reusable Real PNG Tape Overlay */
+        .real-tape-strip {
+            position: absolute;
+            background-image: url('assets/tape.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 35;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+        }
+
+        /* =========================================================
+           1. TOP-LEFT BRANDING & IDENTITY (ALIGNED RIGHT NEXT TO RED LINE)
+        ========================================================= */
+        .identity-container {
+            position: absolute;
+            top: clamp(32px, 5vh, 52px);
+            left: clamp(85px, 9vw, 140px);
+            /* Positioned cleanly to the right of the red line */
+            width: clamp(230px, 25vw, 340px);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tag-video-editor {
+            font-family: var(--font-body);
+            font-size: clamp(11px, 1vw, 14px);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #444;
+            margin-bottom: 2px;
+            transform: translateY(-20px);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .tag-video-editor.assembled {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .title-video-editor {
+            font-family: var(--font-body);
+            font-size: clamp(34px, 3.8vw, 56px);
+            font-weight: 900;
+            line-height: 0.88;
+            letter-spacing: -1.5px;
+            color: #111;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            transform: translateY(-30px);
+            transition: all 0.55s ease;
+            opacity: 0;
+        }
+
+        .title-video-editor.assembled {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .name-tape-banner {
+            position: relative;
+            display: inline-block;
+            align-self: flex-start;
+            padding: 4px 18px 5px 14px;
+            background: #d8c0b2;
+            background: linear-gradient(135deg, #e4ccc1 0%, #cdb2a1 100%);
+            border-radius: 4px;
+            box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.08);
+            transform: translateY(-20px) rotate(-1.5deg);
+            margin-bottom: 10px;
+            transition: all 0.55s cubic-bezier(0.18, 0.89, 0.32, 1.2);
+            opacity: 0;
+        }
+
+        .name-tape-banner.assembled {
+            transform: translateY(0) rotate(-1.5deg);
+            opacity: 1;
+        }
+
+        .name-tape-text {
+            font-family: var(--font-hand);
+            font-size: clamp(20px, 2.2vw, 28px);
+            font-weight: 700;
+            color: #1f1d1b;
+            line-height: 1.1;
+            white-space: nowrap;
+        }
+
+        .identity-subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(11px, 0.95vw, 13px);
+            line-height: 1.35;
+            color: #4b463f;
+            font-weight: 500;
+            max-width: 280px;
+            transform: translateY(-15px);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .identity-subtitle.assembled {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* =========================================================
+           2. VINTAGE CAMERA ON TRIPOD (ALIGNED RIGHT NEXT TO RED LINE)
+        ========================================================= */
+        .camera-illustration-wrap {
+            top: clamp(270px, 39vh, 360px);
+            left: clamp(85px, 9.5vw, 140px);
+            /* Positioned cleanly right next to the red line */
+            width: clamp(105px, 11vw, 155px);
+            height: auto;
+            z-index: 15;
+            transform: translate(-30px, 20px) rotate(-6deg);
+        }
+
+        .camera-illustration-wrap.assembled {
+            transform: translate(0, 0) rotate(0deg);
+        }
+
+        .camera-png-art {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(4px 10px 16px rgba(0, 0, 0, 0.16));
+            transition: transform 0.3s ease;
+        }
+
+        .camera-illustration-wrap:hover .camera-png-art {
+            transform: scale(1.04) rotate(-1deg);
+        }
+
+        /* Doodle Badges around camera */
+        .doodle-badge {
+            position: absolute;
+            z-index: 25;
+            opacity: 0;
+            transform: scale(0.4) rotate(-20deg);
+            transition: all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.35);
+        }
+
+        .doodle-badge.assembled {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .doodle-badge:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .doodle-heart {
+            top: -16px;
+            right: -6px;
+            width: 28px;
+            height: 28px;
+        }
+
+        .doodle-play {
+            top: 40%;
+            right: -24px;
+            width: 30px;
+            height: 30px;
+        }
+
+        .doodle-star {
+            bottom: 22%;
+            left: -14px;
+            width: 24px;
+            height: 24px;
+        }
+
+        /* =========================================================
+           3. HERO CUTOUT PORTRAIT (CENTER PERFECT SIZING)
+        ========================================================= */
+        .hero-sticker-wrap {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -20%) scale(0.85) rotate(-3deg);
+            width: clamp(230px, 24vw, 350px);
+            height: clamp(380px, 75vh, 700px);
+            z-index: 12;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .hero-sticker-wrap.assembled {
+            transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        }
+
+        .hero-sticker-figure {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .hero-sticker-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.22));
+            transition: transform 0.3s ease;
+        }
+
+        .hero-sticker-wrap:hover .hero-sticker-img {
+            transform: scale(1.02) rotate(-0.5deg);
+        }
+
+        /* Doodle sketch accents around head */
+        .head-doodle-sparkle-top {
+            position: absolute;
+            top: 2%;
+            right: 14%;
+            width: 24px;
+            height: 24px;
+            z-index: 14;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.2);
+        }
+
+        .head-doodle-sparkle-top.assembled {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .head-doodle-quotes-right {
+            position: absolute;
+            top: 14%;
+            right: 8%;
+            width: 20px;
+            height: 20px;
+            z-index: 14;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.2);
+        }
+
+        .head-doodle-quotes-right.assembled {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .head-doodle-quotes-left {
+            position: absolute;
+            top: 22%;
+            left: 6%;
+            width: 22px;
+            height: 22px;
+            z-index: 14;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.2);
+        }
+
+        .head-doodle-quotes-left.assembled {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* =========================================================
+           4. TOP-RIGHT "TOOLS I USE" NOTEBOOK SHEET (TOP CORNER)
+        ========================================================= */
+        .tools-notebook-card {
+            top: clamp(26px, 4.5vh, 48px);
+            right: clamp(25px, 3.8vw, 55px);
+            width: clamp(200px, 18.5vw, 265px);
+            background: #faf8f2;
+            border-radius: 2px;
+            padding: 16px 14px 14px 28px;
+            box-shadow: 4px 10px 24px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.05);
+            z-index: 18;
+            transform: translate(50px, -25px) rotate(3deg);
+            /* Spiral notebook hole punches on the left edge */
+            background-image:
+                radial-gradient(circle, #e4dfd3 4px, transparent 5px),
+                repeating-linear-gradient(180deg, transparent, transparent 24px, rgba(0, 0, 0, 0.05) 24px, rgba(0, 0, 0, 0.05) 25px);
+            background-size: 14px 24px, 100% 24px;
+            background-position: 6px 14px, 0 0;
+            background-repeat: repeat-y, repeat;
+        }
+
+        .tools-notebook-card.assembled {
+            transform: translate(0, 0) rotate(1deg);
+        }
+
+        .tools-tape-top {
+            top: -10px;
+            right: -8px;
+            width: 70px;
+            height: 24px;
+            transform: rotate(24deg);
+        }
+
+        .tools-heading {
+            font-family: var(--font-marker);
+            font-size: clamp(15px, 1.4vw, 20px);
+            letter-spacing: 0.5px;
+            color: #222;
+            margin-bottom: 10px;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .tool-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.6);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .tool-row:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateX(3px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .tool-icon-davinci {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            background: #161616;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
+        }
+
+        .tool-info-title {
+            font-size: clamp(11px, 0.95vw, 13px);
+            font-weight: 700;
+            color: #1f1f1f;
+            line-height: 1.2;
+        }
+
+        .tool-info-sub {
+            font-size: clamp(9px, 0.8vw, 11px);
+            color: #6b6359;
+            font-weight: 600;
+        }
+
+        /* Sticky note (Centered in between Tools I Use and About Me) */
+        .sticky-note-quote {
+            top: clamp(235px, 33vh, 290px);
+            right: clamp(35px, 4.8vw, 75px);
+            width: clamp(130px, 12.5vw, 175px);
+            background: #fdf5c9;
+            padding: 12px 14px;
+            box-shadow: 2px 6px 16px rgba(0, 0, 0, 0.08);
+            transform: translate(30px, 15px) rotate(4deg);
+            z-index: 18;
+            border-radius: 2px;
+        }
+
+        .sticky-note-quote.assembled {
+            transform: translate(0, 0) rotate(2.5deg);
+        }
+
+        .sticky-tape-top {
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 50px;
+            height: 18px;
+        }
+
+        .sticky-note-text {
+            font-family: var(--font-kalam);
+            font-size: clamp(11px, 1vw, 14px);
+            font-weight: 700;
+            color: #3b3527;
+            line-height: 1.3;
+        }
+
+        /* =========================================================
+           5. BOTTOM-LEFT "MY WORKS" POLAROID CARD (ALIGNED RIGHT NEXT TO RED LINE)
+        ========================================================= */
+        .works-polaroid-card {
+            bottom: clamp(18px, 3.5vh, 38px);
+            left: clamp(85px, 9.5vw, 140px);
+            /* Positioned cleanly right next to the red line */
+            width: clamp(230px, 22vw, 315px);
+            background: #f7f3ea;
+            padding: 12px 12px 10px 12px;
+            border-radius: 6px;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14), 0 3px 8px rgba(0, 0, 0, 0.06);
+            z-index: 26;
+            transform: translate(-35px, 50px) rotate(-5deg);
+        }
+
+        .works-polaroid-card.assembled {
+            transform: translate(0, 0) rotate(-2deg);
+        }
+
+        .works-tape-top {
+            top: -10px;
+            left: 32%;
+            width: 75px;
+            height: 22px;
+            transform: rotate(-3deg);
+        }
+
+        .works-header-title {
+            font-family: var(--font-marker);
+            font-size: clamp(15px, 1.5vw, 20px);
+            color: #1a1a1a;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .works-doodle-spark {
+            font-family: var(--font-hand);
+            font-size: 18px;
+            color: #d97706;
+        }
+
+        /* Screen window inside frame */
+        .works-display-frame {
+            position: relative;
+            width: 100%;
+            height: clamp(115px, 14vh, 160px);
+            background: #0d0e12;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+            cursor: pointer;
+        }
+
+        .works-display-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .works-display-frame:hover .works-display-img {
+            transform: scale(1.05);
+        }
+
+        /* Overlay with Title & Play button */
+        .works-screen-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.75) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 10px;
+        }
+
+        .works-overlay-tag {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #f59e0b;
+            text-transform: uppercase;
+        }
+
+        .works-overlay-heading {
+            font-family: var(--font-display);
+            font-size: clamp(12px, 1.2vw, 15px);
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .play-pulse-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .works-display-frame:hover .play-pulse-btn {
+            transform: translate(-50%, -50%) scale(1.15);
+            background: #fff;
+        }
+
+        /* Thumbnails Strip (All 7 Works) */
+        .works-thumb-strip {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .work-mini-thumb {
+            height: clamp(22px, 2.8vh, 32px);
+            border-radius: 3px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1.5px solid transparent;
+            opacity: 0.65;
+            transition: all 0.2s ease;
+            background: #1a1a1a;
+            position: relative;
+        }
+
+        .work-mini-thumb.active {
+            border-color: #111;
+            opacity: 1;
+            transform: scale(1.08);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        }
+
+        .work-mini-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Works Carousel Controls & Counter */
+        .works-footer-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 6px;
+            padding-top: 2px;
+        }
+
+        .work-nav-btn {
+            width: 24px;
+            height: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 800;
+            color: #222;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .work-nav-btn:hover {
+            background: #111;
+            color: #fff;
+        }
+
+        .works-counter {
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 700;
+            color: #555;
+            letter-spacing: 1px;
+        }
+
+        /* =========================================================
+           6. BOTTOM-RIGHT "ABOUT ME" TORN PAPER & CLIP
+        ========================================================= */
+        .about-clipped-card {
+            bottom: clamp(18px, 3.5vh, 38px);
+            right: clamp(25px, 3.8vw, 55px);
+            width: clamp(240px, 23.5vw, 335px);
+            background: #faf7ef;
+            padding: 14px 16px 12px 16px;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.05);
+            z-index: 20;
+            transform: translate(45px, 50px) rotate(4deg);
+            border-radius: 2px;
+        }
+
+        .about-clipped-card.assembled {
+            transform: translate(0, 0) rotate(1.5deg);
+        }
+
+        .about-content-layout {
+            display: flex;
+            gap: 12px;
+        }
+
+        .about-text-col {
+            flex: 1;
+        }
+
+        .about-heading {
+            font-family: var(--font-marker);
+            font-size: clamp(15px, 1.5vw, 20px);
+            color: #191817;
+            margin-bottom: 6px;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .about-bio-p {
+            font-size: clamp(10px, 0.9vw, 12px);
+            line-height: 1.35;
+            color: #3e3933;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .about-signature {
+            font-family: var(--font-hand);
+            font-size: clamp(20px, 2.1vw, 28px);
+            font-weight: 700;
+            color: #4338ca;
+            margin-top: 4px;
+            line-height: 1;
+            letter-spacing: -0.5px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.5s ease;
+        }
+
+        .about-signature.assembled {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Clipped Authentic Polaroid PNG on About Card */
+        .about-polaroid-photo-wrap {
+            position: relative;
+            width: clamp(75px, 8vw, 115px);
+            flex-shrink: 0;
+            align-self: flex-start;
+            transform: rotate(3deg) scale(0.6);
+            opacity: 0;
+            filter: drop-shadow(2px 6px 14px rgba(0, 0, 0, 0.2));
+            transition: all 0.55s cubic-bezier(0.18, 0.89, 0.32, 1.25);
+        }
+
+        .about-polaroid-photo-wrap.assembled {
+            opacity: 1;
+            transform: rotate(3deg) scale(1);
+        }
+
+        .about-polaroid-photo-wrap:hover {
+            transform: scale(1.05) rotate(1deg);
+        }
+
+        .about-polaroid-photo-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Authentic Wired Earphones PNG in Bottom Right Corner */
+        .earphones-wrap {
+            position: absolute;
+            bottom: -18px;
+            right: 8px;
+            width: clamp(90px, 9.5vw, 140px);
+            z-index: 28;
+            pointer-events: none;
+            transform: rotate(-12deg) translateY(20px);
+            opacity: 0;
+            transition: all 0.55s cubic-bezier(0.18, 0.89, 0.32, 1.2);
+        }
+
+        .earphones-wrap.assembled {
+            opacity: 1;
+            transform: rotate(-6deg) translateY(0);
+        }
+
+        .earphones-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(4px 10px 18px rgba(0, 0, 0, 0.22));
+        }
+
+        .earphones-tape {
+            top: 35%;
+            right: 18%;
+            width: 55px;
+            height: 20px;
+            transform: rotate(32deg);
+        }
+
+        /* =========================================================
+           7. BOTTOM CENTER: CALL TO ACTION & FILM STRIP
+        ========================================================= */
+        .bottom-cta-banner {
+            bottom: clamp(14px, 2.6vh, 28px);
+            left: 50%;
+            transform: translate(-50%, 40px) scale(0.9);
+            z-index: 35;
+            background: #fdfaf4;
+            padding: 8px 18px;
+            border-radius: 4px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .bottom-cta-banner.assembled {
+            transform: translate(-50%, 0) scale(1);
+        }
+
+        .cta-tape-top {
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(1deg);
+            width: 65px;
+            height: 18px;
+        }
+
+        .cta-tagline {
+            font-size: clamp(10px, 0.9vw, 12px);
+            color: #555;
+            font-weight: 600;
+        }
+
+        .cta-action-pill {
+            background: #191817;
+            color: #fff;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: clamp(11px, 1vw, 13px);
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+            transition: all 0.25s ease;
+        }
+
+        .cta-action-pill:hover {
+            background: #000;
+            transform: translateY(-2px) scale(1.03);
+        }
+
+        /* Film strip ribbon PNG at bottom-left corner */
+        .filmstrip-ribbon-wrap {
+            bottom: 1.5%;
+            left: clamp(18px, 2.2vw, 35px);
+            width: clamp(85px, 9.5vw, 140px);
+            z-index: 10;
+            transform: rotate(-10deg) scale(0.7);
+            pointer-events: none;
+            filter: drop-shadow(2px 6px 12px rgba(0, 0, 0, 0.15));
+        }
+
+        .filmstrip-ribbon-wrap.assembled {
+            transform: rotate(-10deg) scale(1);
+        }
+
+        .filmstrip-ribbon-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .scroll-doodle-arrow {
+            bottom: 10%;
+            left: 15%;
+            z-index: 22;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-family: var(--font-hand);
+            font-size: clamp(14px, 1.4vw, 18px);
+            font-weight: 700;
+            color: #3b3527;
+            transform: rotate(-8deg);
+        }
+
+        /* =========================================================
+           INTERACTIVE VIDEO LIGHTBOX / MODAL
+        ========================================================= */
+        .video-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 20px;
+        }
+
+        .video-modal-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .video-modal-box {
+            width: 100%;
+            max-width: 860px;
+            background: #17171c;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+            transform: scale(0.92) translateY(20px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-modal-backdrop.active .video-modal-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .video-modal-header {
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: #111116;
+        }
+
+        .video-modal-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .video-modal-title {
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .video-modal-platform-badge {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .video-modal-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-modal-nav-btn {
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .video-modal-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .video-modal-close {
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            margin-left: 6px;
+        }
+
+        .video-modal-close:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .video-player-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            /* 16:9 Aspect Ratio */
+            background: #000;
+        }
+
+        .video-player-iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-modal-details {
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            background: #111115;
+        }
+
+        .video-open-external-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #2563eb;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .video-open-external-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .video-tags-list {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .video-tag-item {
+            padding: 4px 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.08);
+            font-size: 10px;
+            font-weight: 600;
+            color: #bbb;
+        }
+
+        /* =========================================================
+           SCRAPBOOK CONTACT POPUP MODAL
+        ========================================================= */
+        .contact-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(20, 18, 15, 0.6);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 20px;
+        }
+
+        .contact-modal-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .contact-paper-card {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            background: #fbf7ee;
+            padding: 28px 24px 24px 24px;
+            border-radius: 4px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.28);
+            transform: scale(0.9) rotate(-2deg);
+            transition: all 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+
+        .contact-modal-backdrop.active .contact-paper-card {
+            transform: scale(1) rotate(-1deg);
+        }
+
+        .contact-tape-accent {
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%) rotate(2deg);
+            width: 85px;
+            height: 24px;
+        }
+
+        .contact-card-title {
+            font-family: var(--font-marker);
+            font-size: 24px;
+            color: #191817;
+            margin-bottom: 4px;
+        }
+
+        .contact-card-sub {
+            font-size: 13px;
+            color: #635c53;
+            margin-bottom: 18px;
+        }
+
+        .contact-links-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .contact-action-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: #fff;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            text-decoration: none;
+            color: #111;
+            font-weight: 700;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+        }
+
+        .contact-action-link:hover {
+            transform: translateX(4px);
+            background: #111;
+            color: #fff;
+        }
+
+        .contact-close-btn {
+            width: 100%;
+            padding: 9px;
+            background: #eae3d3;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12px;
+            color: #444;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .contact-close-btn:hover {
+            background: #ded5c2;
+            color: #111;
+        }
+
+        /* =========================================================
+           MOBILE & TABLET RESPONSIVE TUNING
+        ========================================================= */
+        @media (max-width: 900px) {
+            .scroll-container {
+                height: 500vh;
+            }
+
+            .vintage-margin-line-left {
+                left: 20px;
+            }
+
+            .identity-container {
+                top: 3.5%;
+                left: 32px;
+                width: 52%;
+            }
+
+            .title-video-editor {
+                font-size: clamp(26px, 6vw, 42px);
+                margin-bottom: 4px;
+            }
+
+            .name-tape-text {
+                font-size: clamp(15px, 3vw, 20px);
+            }
+
+            .identity-subtitle {
+                font-size: 9px;
+                max-width: 180px;
+            }
+
+            .hero-sticker-wrap {
+                width: 52vw;
+                height: 58vh;
+                top: 48%;
+            }
+
+            .tools-notebook-card {
+                top: 4%;
+                right: 3%;
+                width: 36vw;
+                padding: 10px 8px 8px 18px;
+            }
+
+            .tools-heading {
+                font-size: 12px;
+                margin-bottom: 6px;
+            }
+
+            .tool-row {
+                gap: 4px;
+                margin-bottom: 4px;
+                padding: 2px;
+            }
+
+            .tool-icon-davinci {
+                width: 18px;
+                height: 18px;
+                border-radius: 4px;
+            }
+
+            .tool-icon-davinci svg {
+                width: 12px;
+                height: 12px;
+            }
+
+            .tool-info-title {
+                font-size: 8px;
+            }
+
+            .tool-info-sub {
+                font-size: 7px;
+            }
+
+            .sticky-note-quote {
+                top: 32%;
+                right: 3%;
+                width: 28vw;
+                padding: 6px 8px;
+            }
+
+            .sticky-note-text {
+                font-size: 9px;
+            }
+
+            .works-polaroid-card {
+                bottom: 3%;
+                left: 32px;
+                width: 44vw;
+                padding: 6px;
+            }
+
+            .works-header-title {
+                font-size: 12px;
+            }
+
+            .works-display-frame {
+                height: 13vh;
+            }
+
+            .works-overlay-heading {
+                font-size: 10px;
+            }
+
+            .works-thumb-strip {
+                display: none;
+            }
+
+            .about-clipped-card {
+                bottom: 3%;
+                right: 3%;
+                width: 46vw;
+                padding: 8px;
+            }
+
+            .about-heading {
+                font-size: 12px;
+            }
+
+            .about-bio-p {
+                font-size: 8px;
+                line-height: 1.25;
+                margin-bottom: 3px;
+            }
+
+            .about-polaroid-photo-wrap {
+                width: 38px;
+            }
+
+            .camera-illustration-wrap {
+                width: 16vw;
+                top: 38%;
+                left: 32px;
+            }
+
+            .earphones-wrap {
+                width: 12vw;
+                bottom: -6px;
+                right: 4px;
+            }
+
+            .filmstrip-ribbon-wrap {
+                width: 18vw;
+                left: 10px;
+            }
+
+            .bottom-cta-banner {
+                bottom: 1.5%;
+                padding: 5px 12px;
+            }
+
+            .cta-action-pill {
+                padding: 5px 14px;
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         TOP FLOATING HUD CONTROLS
+    ========================================================= -->
+    <div class="hud-controls">
+        <div class="scroll-progress-badge">
+            <span id="scrollPercent">0%</span>
+            <div class="scroll-indicator-bar">
+                <div class="scroll-indicator-fill" id="scrollBarFill"></div>
+            </div>
+        </div>
+        <button class="skip-btn" id="skipAssembleBtn" onclick="toggleInstantAssemble()">⚡ Skip to Full View</button>
+    </div>
+
+    <!-- =========================================================
+         SCROLL TRACK (PROGRESSES ENTRANCE ANIMATIONS)
+    ========================================================= -->
+    <div class="scroll-container" id="scrollContainer">
+
+        <!-- Pinned Viewport Frame -->
+        <div class="viewport-frame">
+
+            <!-- Authentic Scrapbook Canvas Frame -->
+            <main class="scrapbook-canvas" id="scrapbookCanvas">
+
+                <!-- Decorative vintage pencil lines -->
+                <div class="vintage-margin-line-top"></div>
+                <div class="vintage-margin-line-left"></div>
+
+                <!-- ==================================================
+                     BLANK PAPER HINT (VISIBLE AT 0% SCROLL)
+                ================================================== -->
+                <div class="blank-scroll-hint" id="blankHint">
+                    <div class="hint-doodle-icon">✍️</div>
+                    <div class="hint-text-title">Scroll to assemble scrapbook</div>
+                    <div class="hint-text-sub">Watch each element enter individually</div>
+                    <svg class="hint-scroll-arrow" viewBox="0 0 24 32">
+                        <path d="M12 2v24M4 18l8 8 8-8" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+
+                <!-- ==================================================
+                     1. TOP-LEFT BRANDING & IDENTITY (Step-by-Step)
+                ================================================== -->
+                <section class="identity-container">
+                    <span class="tag-video-editor" id="seqTag">Portfolio</span>
+                    <h1 class="title-video-editor" id="seqTitle">VIDEO<br>EDITOR</h1>
+                    <div class="name-tape-banner" id="seqName">
+                        <div class="name-tape-text">Mohammed Izhar Ahmed</div>
+                    </div>
+                    <p class="identity-subtitle" id="seqSub">Crafting cinematic edits, motion graphics & visual stories
+                        that connect and inspire.</p>
+                </section>
+
+                <!-- ==================================================
+                     2. VINTAGE CAMERA ON TRIPOD & DOODLE BADGES
+                ================================================== -->
+                <div class="scrap-item camera-illustration-wrap" id="seqCamera">
+                    <!-- Authentic Vintage Camera PNG -->
+                    <img class="camera-png-art" src="assets/camera.png" alt="Vintage Film Camera"
+                        onerror="this.src='izharrr-portfolio/assets/camera.png'">
+
+                    <!-- Individual Doodle Badges -->
+                    <svg class="doodle-badge doodle-heart" id="seqHeart" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="18" fill="#f87171" stroke="#221e1a" stroke-width="2" />
+                        <path
+                            d="M20 27 C20 27 12 21 12 16 A4.5 4.5 0 0 1 20 13.5 A4.5 4.5 0 0 1 28 16 C28 21 20 27 20 27 Z"
+                            fill="#fff" />
+                    </svg>
+
+                    <svg class="doodle-badge doodle-play" id="seqPlay" viewBox="0 0 40 40">
+                        <rect x="4" y="4" width="32" height="32" rx="8" fill="#a78bfa" stroke="#221e1a"
+                            stroke-width="2" />
+                        <polygon points="16,12 28,20 16,28" fill="#fff" />
+                    </svg>
+
+                    <svg class="doodle-badge doodle-star" id="seqStar" viewBox="0 0 40 40">
+                        <polygon points="20,4 24,14 35,15 27,22 29,33 20,27 11,33 13,22 5,15 16,14" fill="#fbbf24"
+                            stroke="#221e1a" stroke-width="2" />
+                    </svg>
+                </div>
+
+                <!-- ==================================================
+                     3. CENTER HERO CUTOUT STICKER
+                ================================================== -->
+                <div class="scrap-item hero-sticker-wrap" id="seqHero">
+                    <div class="hero-sticker-figure">
+                        <!-- Authentic Cutout Portrait PNG -->
+                        <img class="hero-sticker-img" id="heroStickerImg" src="assets/portrait.png"
+                            alt="Mohammed Izhar Ahmed" onerror="this.src='izharrr-portfolio/assets/portrait.png'">
+
+                        <!-- Individual Doodle Accents around head -->
+                        <svg class="head-doodle-sparkle-top" id="seqHeadSparkle" viewBox="0 0 24 24" stroke="#111"
+                            stroke-width="2.5" fill="none">
+                            <line x1="12" y1="2" x2="12" y2="8" />
+                            <line x1="4" y1="12" x2="10" y2="12" />
+                            <line x1="18" y1="6" x2="14" y2="10" />
+                        </svg>
+
+                        <svg class="head-doodle-quotes-right" id="seqHeadQuotesRight" viewBox="0 0 24 24" stroke="#111"
+                            stroke-width="2" fill="none" stroke-linecap="round">
+                            <path d="M4 8 Q12 12 8 20" />
+                            <path d="M12 4 Q20 8 16 16" />
+                        </svg>
+
+                        <svg class="head-doodle-quotes-left" id="seqHeadQuotesLeft" viewBox="0 0 24 24" stroke="#111"
+                            stroke-width="2" fill="none" stroke-linecap="round">
+                            <path d="M20 8 Q12 12 16 20" />
+                            <path d="M12 4 Q4 8 8 16" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- ==================================================
+                     4. TOP-RIGHT "TOOLS I USE" & STICKY NOTE
+                ================================================== -->
+                <section class="scrap-item tools-notebook-card" id="seqTools">
+                    <div class="real-tape-strip tools-tape-top"></div>
+                    <h2 class="tools-heading">TOOLS I USE</h2>
+
+                    <div class="tool-row" onclick="openVideoModal(0)">
+                        <div class="tool-icon-davinci" style="border-left: 3px solid var(--accent-davinci-edit);">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                                <circle cx="8" cy="8" r="4" fill="#3b82f6" />
+                                <circle cx="16" cy="8" r="4" fill="#ef4444" />
+                                <circle cx="12" cy="16" r="4" fill="#10b981" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="tool-info-title">DaVinci Resolve</div>
+                            <div class="tool-info-sub">Edit Page</div>
+                        </div>
+                    </div>
+
+                    <div class="tool-row" onclick="openVideoModal(2)">
+                        <div class="tool-icon-davinci" style="border-left: 3px solid var(--accent-davinci-fusion);">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                                <circle cx="8" cy="8" r="4" fill="#f59e0b" />
+                                <circle cx="16" cy="8" r="4" fill="#8b5cf6" />
+                                <circle cx="12" cy="16" r="4" fill="#06b6d4" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="tool-info-title">DaVinci Resolve</div>
+                            <div class="tool-info-sub">Fusion Page</div>
+                        </div>
+                    </div>
+
+                    <div class="tool-row" onclick="openVideoModal(3)">
+                        <div class="tool-icon-davinci" style="border-left: 3px solid var(--accent-davinci-color);">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                                <circle cx="8" cy="8" r="4" fill="#ec4899" />
+                                <circle cx="16" cy="8" r="4" fill="#3b82f6" />
+                                <circle cx="12" cy="16" r="4" fill="#eab308" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="tool-info-title">DaVinci Resolve</div>
+                            <div class="tool-info-sub">Color Page</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sticky Note taped underneath -->
+                <div class="scrap-item sticky-note-quote" id="seqStickyQuote">
+                    <div class="real-tape-strip sticky-tape-top"></div>
+                    <p class="sticky-note-text">Turning ideas into impactful visuals.</p>
+                </div>
+
+                <!-- ==================================================
+                     5. BOTTOM-LEFT "MY WORKS" POLAROID CARD
+                ================================================== -->
+                <section class="scrap-item works-polaroid-card" id="seqWorks">
+                    <div class="real-tape-strip works-tape-top"></div>
+                    <div class="works-header-title">
+                        <span>MY WORKS</span>
+                        <span class="works-doodle-spark">✨</span>
+                    </div>
+
+                    <!-- Main Active Video Frame -->
+                    <div class="works-display-frame" onclick="openActiveWorkModal()">
+                        <img class="works-display-img" id="mainWorkDisplayImg" src="assets/work-yt-1.jpg"
+                            alt="Active Work" onerror="this.src='assets/work-yt-1.jpg'">
+                        <div class="play-pulse-btn">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="#111">
+                                <polygon points="8,5 19,12 8,19" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- 4-Thumbnail Strip -->
+                    <div class="works-thumb-strip" id="worksThumbStrip">
+                        <!-- Rendered by JavaScript -->
+                    </div>
+
+                    <!-- Controls & Counter -->
+                    <div class="works-footer-bar">
+                        <button class="work-nav-btn" onclick="prevWorkItem()" title="Previous Work">❮</button>
+                        <div class="works-counter" id="worksCounterDisplay">01 / 07</div>
+                        <button class="work-nav-btn" onclick="nextWorkItem()" title="Next Work">❯</button>
+                    </div>
+                </section>
+
+                <!-- ==================================================
+                     6. BOTTOM-RIGHT "ABOUT ME" TORN PAPER & CLIP
+                ================================================== -->
+                <section class="scrap-item about-clipped-card" id="seqAbout">
+                    <div class="about-content-layout">
+                        <div class="about-text-col">
+                            <h2 class="about-heading">ABOUT ME</h2>
+                            <p class="about-bio-p">I'm a passionate video editor and motion designer who loves telling
+                                stories through visuals.</p>
+                            <p class="about-bio-p">I specialize in DaVinci Resolve (Edit, Fusion & Color) to deliver
+                                cinematic and engaging content.</p>
+                            <p class="about-bio-p">Always exploring new ideas and pushing creative boundaries.</p>
+                            <div class="about-signature" id="seqSignature">A Izharrr</div>
+                        </div>
+
+                        <!-- Authentic Clipped Polaroid Photo with Paperclip PNG -->
+                        <div class="about-polaroid-photo-wrap" id="seqAboutPolaroid">
+                            <img src="assets/about-polaroid.png" alt="Izhar Ahmed"
+                                onerror="this.src='izharrr-portfolio/assets/about-polaroid.png'">
+                        </div>
+                        <!-- Authentic Wired Earphones PNG Taped Down in Right Bottom Corner -->
+                        <div class="earphones-wrap" id="seqEarphones">
+                            <img class="earphones-img" src="assets/earphones.png" alt="Wired Earphones"
+                                onerror="this.src='izharrr-portfolio/assets/earphones.png'">
+                            <div class="real-tape-strip earphones-tape"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================
+                     7. BOTTOM CTA & FILMSTRIP RIBBON
+                ================================================== -->
+                <div class="scrap-item bottom-cta-banner" id="seqCta">
+                    <div class="real-tape-strip cta-tape-top"></div>
+                    <span class="cta-tagline">Let's create something amazing together.</span>
+                    <button class="cta-action-pill" onclick="openContactModal()">
+                        <span>Get In Touch</span>
+                        <span>↗</span>
+                    </button>
+                </div>
+
+                <!-- Authentic Film Strip Ribbon PNG -->
+                <div class="scrap-item filmstrip-ribbon-wrap" id="seqFilmstrip">
+                    <img src="assets/film-strip.png" alt="35mm Film Strip"
+                        onerror="this.src='izharrr-portfolio/assets/film-strip.png'">
+                </div>
+
+                <div class="scrap-item scroll-doodle-arrow" id="seqScrollPrompt">
+                    <span>Scroll to explore more</span>
+                    <span>~➔</span>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         INTERACTIVE VIDEO LIGHTBOX MODAL
+    ========================================================= -->
+    <div class="video-modal-backdrop" id="videoModalBackdrop" onclick="handleModalBackdropClick(event)">
+        <div class="video-modal-box">
+            <div class="video-modal-header">
+                <div class="video-modal-title-wrap">
+                    <span class="video-modal-platform-badge" id="modalPlatformBadge"
+                        style="background:#ef4444; color:#fff;">YOUTUBE</span>
+                    <span style="font-size: 13px; font-weight: 700; color: #a1a1aa;" id="modalCounter">01 / 07</span>
+                </div>
+                <div class="video-modal-controls">
+                    <button class="video-modal-nav-btn" onclick="prevWorkItem(true)" title="Previous Video">❮</button>
+                    <button class="video-modal-nav-btn" onclick="nextWorkItem(true)" title="Next Video">❯</button>
+                    <a class="video-open-external-btn" id="modalExternalLink" href="#" target="_blank" rel="noopener">
+                        <span>Open ↗</span>
+                    </a>
+                    <button class="video-modal-close" onclick="closeVideoModal()">✕</button>
+                </div>
+            </div>
+
+            <!-- Video Player Area -->
+            <div class="video-player-container" id="modalPlayerWrapper">
+                <!-- Dynamically populated iframe -->
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         SCRAPBOOK CONTACT POPUP MODAL
+    ========================================================= -->
+    <div class="contact-modal-backdrop" id="contactModalBackdrop" onclick="handleContactBackdropClick(event)">
+        <div class="contact-paper-card">
+            <div class="real-tape-strip contact-tape-accent"></div>
+            <h2 class="contact-card-title">Let's Connect!</h2>
+            <p class="contact-card-sub">Ready to bring your video project to life? Feel free to reach out via your
+                favorite platform:</p>
+
+            <div class="contact-links-grid">
+                <a class="contact-action-link"
+                    href="https://wa.me/916301671698?text=Hi%20Izhar,%20I%27d%20like%20to%20collaborate%20on%20a%20video%20project!"
+                    target="_blank" rel="noopener">
+                    <span>💬 WhatsApp</span>
+                    <span>Chat ↗</span>
+                </a>
+                <a class="contact-action-link" href="https://www.instagram.com/izharrreel/?hl=en" target="_blank"
+                    rel="noopener">
+                    <span>📸 Instagram</span>
+                    <span>@izharrreel ↗</span>
+                </a>
+                <a class="contact-action-link" href="mailto:izharfaiz2005@gmail.com" target="_blank" rel="noopener">
+                    <span>✉️ Email</span>
+                    <span>izharfaiz2005@gmail.com ↗</span>
+                </a>
+            </div>
+
+            <button class="contact-close-btn" onclick="closeContactModal()">Close Card</button>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         JAVASCRIPT LOGIC: INDIVIDUAL SCROLL ENTRANCES & INTERACTIONS
+    ========================================================= -->
+    <script>
+        /* =========================================================
+           PORTFOLIO WORKS LIST (Add your future videos here!)
+           =========================================================
+           HOW TO ADD A NEW WORK:
+           1. For YouTube:
+              {
+                  id: 8,
+                  platform: "youtube",
+                  badgeBg: "#ef4444",
+                  thumbnail: "https://img.youtube.com/vi/YOUR_VIDEO_ID/hqdefault.jpg", // or "assets/my-thumbnail.jpg"
+                  embedUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1",
+                  directUrl: "https://youtu.be/YOUR_VIDEO_ID"
+              },
+
+           2. For Instagram Reel / Post:
+              {
+                  id: 8,
+                  platform: "instagram",
+                  badgeBg: "#e1306c",
+                  thumbnail: "assets/work-ig-new.jpg", // or image URL
+                  embedUrl: "https://www.instagram.com/reel/YOUR_REEL_CODE/embed/",
+                  directUrl: "https://www.instagram.com/reel/YOUR_REEL_CODE/"
+              },
+        ========================================================= */
+        const portfolioWorks = [
+            {
+                id: 1,
+                platform: "youtube",
+                badgeBg: "#ef4444",
+                thumbnail: "assets/work-yt-1.jpg",
+                embedUrl: "https://www.youtube.com/embed/cbkQkQi2rMU?autoplay=1",
+                directUrl: "https://youtu.be/cbkQkQi2rMU"
+            },
+            {
+                id: 2,
+                platform: "youtube",
+                badgeBg: "#ef4444",
+                thumbnail: "assets/work-yt-2.jpg",
+                embedUrl: "https://www.youtube.com/embed/gDkhAIw6TcI?autoplay=1",
+                directUrl: "https://youtu.be/gDkhAIw6TcI"
+            },
+            {
+                id: 3,
+                platform: "youtube",
+                badgeBg: "#ef4444",
+                thumbnail: "assets/work-yt-3.jpg",
+                embedUrl: "https://www.youtube.com/embed/4wAisxwwUHE?autoplay=1",
+                directUrl: "https://youtu.be/4wAisxwwUHE"
+            },
+            {
+                id: 4,
+                platform: "instagram",
+                badgeBg: "#e1306c",
+                thumbnail: "assets/work-ig-1.jpg",
+                embedUrl: "https://www.instagram.com/reel/Db-b3aZh6Wo/embed/",
+                directUrl: "https://www.instagram.com/reel/Db-b3aZh6Wo/"
+            },
+            {
+                id: 5,
+                platform: "instagram",
+                badgeBg: "#e1306c",
+                thumbnail: "assets/work-ig-2.jpg",
+                embedUrl: "https://www.instagram.com/reel/DcB31e9B7Xu/embed/",
+                directUrl: "https://www.instagram.com/reel/DcB31e9B7Xu/"
+            },
+            {
+                id: 6,
+                platform: "instagram",
+                badgeBg: "#e1306c",
+                thumbnail: "assets/work-ig-3.jpg",
+                embedUrl: "https://www.instagram.com/reel/Da2SBJ2hHdg/embed/",
+                directUrl: "https://www.instagram.com/reel/Da2SBJ2hHdg/"
+            },
+            {
+                id: 7,
+                platform: "instagram",
+                badgeBg: "#e1306c",
+                thumbnail: "assets/work-ig-4.jpg",
+                embedUrl: "https://www.instagram.com/p/DbbFKqOAQgh/embed/",
+                directUrl: "https://www.instagram.com/p/DbbFKqOAQgh/"
+            }
+        ];
+
+        let currentWorkIndex = 0;
+        let isInstantAssembled = false;
+
+        /* Elements reference */
+        const blankHint = document.getElementById("blankHint");
+        const scrollPercentText = document.getElementById("scrollPercent");
+        const scrollBarFill = document.getElementById("scrollBarFill");
+        const skipAssembleBtn = document.getElementById("skipAssembleBtn");
+
+        // 16 Discrete Individual Sequence Elements
+        const seqTag = document.getElementById("seqTag");
+        const seqTitle = document.getElementById("seqTitle");
+        const seqName = document.getElementById("seqName");
+        const seqSub = document.getElementById("seqSub");
+
+        const seqCamera = document.getElementById("seqCamera");
+        const seqHeart = document.getElementById("seqHeart");
+        const seqPlay = document.getElementById("seqPlay");
+        const seqStar = document.getElementById("seqStar");
+
+        const seqHero = document.getElementById("seqHero");
+        const seqHeadSparkle = document.getElementById("seqHeadSparkle");
+        const seqHeadQuotesRight = document.getElementById("seqHeadQuotesRight");
+        const seqHeadQuotesLeft = document.getElementById("seqHeadQuotesLeft");
+
+        const seqTools = document.getElementById("seqTools");
+        const seqStickyQuote = document.getElementById("seqStickyQuote");
+
+        const seqWorks = document.getElementById("seqWorks");
+
+        const seqAbout = document.getElementById("seqAbout");
+        const seqSignature = document.getElementById("seqSignature");
+        const seqAboutPolaroid = document.getElementById("seqAboutPolaroid");
+        const seqEarphones = document.getElementById("seqEarphones");
+
+        const seqCta = document.getElementById("seqCta");
+        const seqFilmstrip = document.getElementById("seqFilmstrip");
+        const seqScrollPrompt = document.getElementById("seqScrollPrompt");
+
+        /* =========================================================
+           SCROLL-DRIVEN INDIVIDUAL ENTRANCE CONTROLLER
+        ========================================================= */
+        function handleScrollEntrance() {
+            if (isInstantAssembled) return;
+
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = Math.min(Math.max(scrollTop / (scrollHeight || 1), 0), 1);
+            const percent = Math.round(progress * 100);
+
+            // Update Progress HUD
+            scrollPercentText.textContent = `${percent}%`;
+            scrollBarFill.style.width = `${percent}%`;
+
+            // 0% -> Blank Paper State Hint
+            if (progress > 0.03) {
+                blankHint.classList.add("hidden");
+            } else {
+                blankHint.classList.remove("hidden");
+            }
+
+            // Step 1: "Video Editor" top label (enters ~5%)
+            toggleElement(seqTag, progress >= 0.05);
+
+            // Step 2: "VIDEO EDITOR" bold header (enters ~10%)
+            toggleElement(seqTitle, progress >= 0.10);
+
+            // Step 3: "Mohammed Izhar Ahmed" tape brush banner (enters ~16%)
+            toggleElement(seqName, progress >= 0.16);
+
+            // Step 4: Subtitle text (enters ~22%)
+            toggleElement(seqSub, progress >= 0.22);
+
+            // Step 5: Vintage Film Camera on tripod (enters ~28%)
+            toggleElement(seqCamera, progress >= 0.28);
+
+            // Step 6: Heart badge (enters ~33%)
+            toggleElement(seqHeart, progress >= 0.33);
+
+            // Step 7: Play badge (enters ~37%)
+            toggleElement(seqPlay, progress >= 0.37);
+
+            // Step 8: Star badge (enters ~41%)
+            toggleElement(seqStar, progress >= 0.41);
+
+            // Step 9: Hero Cutout Sticker in Center (enters ~46%)
+            toggleElement(seqHero, progress >= 0.46);
+
+            // Step 10: Head doodles (enters ~52%)
+            toggleElement(seqHeadSparkle, progress >= 0.52);
+            toggleElement(seqHeadQuotesRight, progress >= 0.54);
+            toggleElement(seqHeadQuotesLeft, progress >= 0.56);
+
+            // Step 11: "TOOLS I USE" notebook sheet (enters ~61%)
+            toggleElement(seqTools, progress >= 0.61);
+
+            // Step 12: Sticky note "Turning ideas into..." (enters ~67%)
+            toggleElement(seqStickyQuote, progress >= 0.67);
+
+            // Step 13: "MY WORKS" polaroid card (enters ~74%)
+            toggleElement(seqWorks, progress >= 0.74);
+
+            // Step 14: "ABOUT ME" torn paper card (enters ~81%)
+            toggleElement(seqAbout, progress >= 0.81);
+
+            // Step 15: Clipped Polaroid photo on About card (enters ~85%)
+            toggleElement(seqAboutPolaroid, progress >= 0.85);
+
+            // Step 16: Signature (enters ~88%)
+            toggleElement(seqSignature, progress >= 0.88);
+
+            // Step 17: Wired earphones taped down (enters ~91%)
+            toggleElement(seqEarphones, progress >= 0.91);
+
+            // Step 18: Filmstrip ribbon (enters ~94%)
+            toggleElement(seqFilmstrip, progress >= 0.94);
+            toggleElement(seqScrollPrompt, progress >= 0.94);
+
+            // Step 19: "Get in Touch" CTA bottom center banner (enters ~97%)
+            toggleElement(seqCta, progress >= 0.97);
+        }
+
+        function toggleElement(el, isVisible) {
+            if (!el) return;
+            if (isVisible) {
+                el.classList.add("assembled");
+            } else {
+                el.classList.remove("assembled");
+            }
+        }
+
+        window.addEventListener("scroll", handleScrollEntrance, { passive: true });
+
+        /* =========================================================
+           TOGGLE INSTANT FULL VIEW / ASSEMBLE
+        ========================================================= */
+        function toggleInstantAssemble() {
+            isInstantAssembled = !isInstantAssembled;
+            const allItems = document.querySelectorAll(".scrap-item, .tag-video-editor, .title-video-editor, .name-tape-banner, .identity-subtitle, .doodle-badge, .head-doodle-sparkle-top, .head-doodle-quotes-right, .head-doodle-quotes-left, .about-signature, .about-polaroid-photo-wrap, .earphones-wrap");
+
+            if (isInstantAssembled) {
+                allItems.forEach(item => item.classList.add("assembled"));
+                blankHint.classList.add("hidden");
+                scrollPercentText.textContent = "100%";
+                scrollBarFill.style.width = "100%";
+                skipAssembleBtn.textContent = "🔄 Reset Blank State";
+                skipAssembleBtn.style.background = "#4f46e5";
+            } else {
+                skipAssembleBtn.textContent = "⚡ Skip to Full View";
+                skipAssembleBtn.style.background = "#191817";
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                setTimeout(handleScrollEntrance, 300);
+            }
+        }
+
+        /* =========================================================
+           "MY WORKS" THUMBNAIL STRIP & CAROUSEL (7 WORKS)
+        ========================================================= */
+        function renderWorksThumbnails() {
+            const strip = document.getElementById("worksThumbStrip");
+            if (!strip) return;
+
+            strip.innerHTML = "";
+            portfolioWorks.forEach((work, idx) => {
+                const thumb = document.createElement("div");
+                thumb.className = `work-mini-thumb ${idx === currentWorkIndex ? 'active' : ''}`;
+                thumb.onclick = (e) => {
+                    e.stopPropagation();
+                    selectWorkIndex(idx);
+                };
+                thumb.innerHTML = `<img src="${work.thumbnail}" alt="Preview ${idx + 1}" onerror="this.src='assets/work-yt-1.jpg'">`;
+                strip.appendChild(thumb);
+            });
+        }
+
+        function updateWorksDisplay() {
+            const current = portfolioWorks[currentWorkIndex];
+            const mainImg = document.getElementById("mainWorkDisplayImg");
+            const counter = document.getElementById("worksCounterDisplay");
+            const modalCounter = document.getElementById("modalCounter");
+
+            if (mainImg) {
+                mainImg.src = current.thumbnail;
+                mainImg.onerror = () => { mainImg.src = 'assets/work-yt-1.jpg'; };
+            }
+            if (counter) counter.textContent = `0${currentWorkIndex + 1} / 0${portfolioWorks.length}`;
+            if (modalCounter) modalCounter.textContent = `0${currentWorkIndex + 1} / 0${portfolioWorks.length}`;
+
+            // Update active state in mini thumbnails
+            const thumbs = document.querySelectorAll(".work-mini-thumb");
+            thumbs.forEach((t, i) => {
+                if (i === currentWorkIndex) t.classList.add("active");
+                else t.classList.remove("active");
+            });
+        }
+
+        function nextWorkItem(isModalNav = false) {
+            currentWorkIndex = (currentWorkIndex + 1) % portfolioWorks.length;
+            updateWorksDisplay();
+            if (isModalNav && videoModal.classList.contains("active")) {
+                openVideoModal(currentWorkIndex);
+            }
+        }
+
+        function prevWorkItem(isModalNav = false) {
+            currentWorkIndex = (currentWorkIndex - 1 + portfolioWorks.length) % portfolioWorks.length;
+            updateWorksDisplay();
+            if (isModalNav && videoModal.classList.contains("active")) {
+                openVideoModal(currentWorkIndex);
+            }
+        }
+
+        function selectWorkIndex(idx) {
+            currentWorkIndex = idx;
+            updateWorksDisplay();
+        }
+
+        /* =========================================================
+           VIDEO LIGHTBOX / PLAYER MODAL
+        ========================================================= */
+        const videoModal = document.getElementById("videoModalBackdrop");
+
+        function openActiveWorkModal() {
+            openVideoModal(currentWorkIndex);
+        }
+
+        function openVideoModal(index) {
+            currentWorkIndex = index;
+            const project = portfolioWorks[index] || portfolioWorks[0];
+            const modalBadge = document.getElementById("modalPlatformBadge");
+            const modalLink = document.getElementById("modalExternalLink");
+            const modalPlayer = document.getElementById("modalPlayerWrapper");
+
+            if (modalBadge) {
+                modalBadge.textContent = project.platform.toUpperCase();
+                modalBadge.style.background = project.badgeBg;
+            }
+            if (modalLink) {
+                modalLink.href = project.directUrl;
+                modalLink.innerHTML = `<span>Watch on ${project.platform === 'youtube' ? 'YouTube' : 'Instagram'} ↗</span>`;
+                modalLink.style.background = project.badgeBg;
+            }
+
+            // Render active responsive iframe player
+            if (modalPlayer) {
+                modalPlayer.innerHTML = `
+                    <iframe class="video-player-iframe" 
+                        src="${project.embedUrl}" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                    </iframe>
+                `;
+            }
+
+            updateWorksDisplay();
+            videoModal.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeVideoModal() {
+            videoModal.classList.remove("active");
+            document.body.style.overflow = "";
+            const modalPlayer = document.getElementById("modalPlayerWrapper");
+            if (modalPlayer) {
+                modalPlayer.innerHTML = ""; // Stop video playback and audio immediately
+            }
+        }
+
+        function handleModalBackdropClick(e) {
+            if (e.target === videoModal) closeVideoModal();
+        }
+
+        /* =========================================================
+           CONTACT POPUP
+        ========================================================= */
+        const contactModal = document.getElementById("contactModalBackdrop");
+
+        function openContactModal() {
+            contactModal.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeContactModal() {
+            contactModal.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+
+        function handleContactBackdropClick(e) {
+            if (e.target === contactModal) closeContactModal();
+        }
+
+        /* Keyboard Controls */
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight") {
+                nextWorkItem(videoModal.classList.contains("active"));
+            }
+            if (e.key === "ArrowLeft") {
+                prevWorkItem(videoModal.classList.contains("active"));
+            }
+            if (e.key === "Escape") {
+                closeVideoModal();
+                closeContactModal();
+            }
+        });
+
+        /* Initial Setup */
+        renderWorksThumbnails();
+        updateWorksDisplay();
+        handleScrollEntrance();
+    </script>
+</body>
+
+</html>
