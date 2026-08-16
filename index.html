@@ -1361,160 +1361,430 @@
         }
 
         /* =========================================================
-           MOBILE & TABLET RESPONSIVE TUNING
+           MOBILE & TABLET RESPONSIVE TUNING (< 860px)
         ========================================================= */
-        @media (max-width: 900px) {
+        @media (max-width: 860px) {
+            body {
+                overflow-x: hidden;
+                overflow-y: auto !important;
+                background: #ede8dc;
+            }
+
+            .hud-controls {
+                position: fixed !important;
+                top: 10px !important;
+                right: 12px !important;
+                z-index: 950 !important;
+                display: flex !important;
+                gap: 8px !important;
+            }
+
+            .scroll-progress-badge {
+                padding: 4px 8px !important;
+                font-size: 10px !important;
+            }
+
+            .scroll-indicator-bar {
+                width: 24px !important;
+            }
+
+            .skip-btn {
+                padding: 5px 10px !important;
+                font-size: 10px !important;
+            }
+
             .scroll-container {
-                height: 500vh;
+                height: auto !important;
+                min-height: 100vh;
+                display: block;
             }
 
-            .vintage-margin-line-left {
-                left: 20px;
+            .viewport-frame {
+                position: relative !important;
+                height: auto !important;
+                min-height: 100vh;
+                display: block !important;
             }
 
-            .identity-container {
-                top: 3.5%;
-                left: 32px;
-                width: 52%;
+            .scrapbook-canvas {
+                position: relative !important;
+                max-width: 100% !important;
+                max-height: none !important;
+                height: auto !important;
+                overflow: visible !important;
+                padding: 36px 16px 120px 16px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 28px !important;
+                box-shadow: none !important;
             }
 
-            .title-video-editor {
-                font-size: clamp(26px, 6vw, 42px);
-                margin-bottom: 4px;
-            }
-
-            .name-tape-text {
-                font-size: clamp(15px, 3vw, 20px);
-            }
-
-            .identity-subtitle {
-                font-size: 9px;
-                max-width: 180px;
-            }
-
-            .hero-sticker-wrap {
-                width: 52vw;
-                height: 58vh;
-                top: 48%;
-            }
-
-            .tools-notebook-card {
-                top: 4%;
-                right: 3%;
-                width: 36vw;
-                padding: 10px 8px 8px 18px;
-            }
-
-            .tools-heading {
-                font-size: 12px;
-                margin-bottom: 6px;
-            }
-
-            .tool-row {
-                gap: 4px;
-                margin-bottom: 4px;
-                padding: 2px;
-            }
-
-            .tool-icon-davinci {
-                width: 18px;
-                height: 18px;
-                border-radius: 4px;
-            }
-
-            .tool-icon-davinci svg {
-                width: 12px;
-                height: 12px;
-            }
-
-            .tool-info-title {
-                font-size: 8px;
-            }
-
-            .tool-info-sub {
-                font-size: 7px;
-            }
-
-            .sticky-note-quote {
-                top: 32%;
-                right: 3%;
-                width: 28vw;
-                padding: 6px 8px;
-            }
-
-            .sticky-note-text {
-                font-size: 9px;
-            }
-
-            .works-polaroid-card {
-                bottom: 3%;
-                left: 32px;
-                width: 44vw;
-                padding: 6px;
-            }
-
-            .works-header-title {
-                font-size: 12px;
-            }
-
-            .works-display-frame {
-                height: 13vh;
-            }
-
-            .works-overlay-heading {
-                font-size: 10px;
-            }
-
-            .works-thumb-strip {
+            .vintage-margin-line-top {
                 display: none;
             }
 
+            .vintage-margin-line-left {
+                left: 12px;
+                top: 0;
+                bottom: 0;
+                opacity: 0.25;
+            }
+
+            .blank-scroll-hint {
+                display: none !important;
+            }
+
+            /* Animated Entrance System for Mobile */
+            .scrap-item {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+                transition: transform 0.65s cubic-bezier(0.18, 0.89, 0.32, 1.15), opacity 0.5s ease;
+                pointer-events: none;
+                width: 100% !important;
+                max-width: 440px !important;
+                margin: 0 auto !important;
+            }
+
+            .scrap-item.assembled {
+                opacity: 1 !important;
+                transform: translateY(0) scale(1) !important;
+                pointer-events: auto !important;
+            }
+
+            /* 1. Identity container */
+            .identity-container {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                width: 100% !important;
+                max-width: 440px !important;
+                margin: 0 auto !important;
+                padding: 10px 0 0 14px;
+            }
+
+            .tag-video-editor {
+                opacity: 0;
+                transform: translateY(-15px);
+                transition: all 0.5s ease;
+                font-size: 13px !important;
+                color: #555;
+            }
+            .tag-video-editor.assembled {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .title-video-editor {
+                opacity: 0;
+                transform: translateY(-20px);
+                transition: all 0.55s ease;
+                font-size: clamp(38px, 11vw, 50px) !important;
+                line-height: 0.9 !important;
+                letter-spacing: -1.5px;
+                margin: 4px 0 10px 0 !important;
+            }
+            .title-video-editor.assembled {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .name-tape-banner {
+                opacity: 0;
+                transform: translateX(-30px);
+                transition: all 0.6s ease;
+                display: inline-block !important;
+                margin-bottom: 10px !important;
+            }
+            .name-tape-banner.assembled {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            .name-tape-text {
+                font-size: 17px !important;
+                padding: 4px 16px !important;
+            }
+
+            .identity-subtitle {
+                opacity: 0;
+                transform: translateY(15px);
+                transition: all 0.6s ease;
+                font-size: 13px !important;
+                line-height: 1.4 !important;
+                max-width: 100% !important;
+                color: #444 !important;
+            }
+            .identity-subtitle.assembled {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* 2. Vintage Camera */
+            .camera-illustration-wrap {
+                width: 110px !important;
+                margin: 0 auto !important;
+                display: flex;
+                justify-content: center;
+            }
+
+            .doodle-badge {
+                opacity: 0;
+                transform: scale(0.5);
+                transition: all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            }
+            .doodle-badge.assembled {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            /* 3. Hero Cutout Portrait */
+            .hero-sticker-wrap {
+                width: 85% !important;
+                max-width: 320px !important;
+                height: auto !important;
+                margin: 10px auto !important;
+                display: flex;
+                justify-content: center;
+            }
+
+            .hero-sticker-figure {
+                width: 100% !important;
+                height: auto !important;
+            }
+
+            .hero-sticker-img {
+                width: 100% !important;
+                max-height: 380px !important;
+                object-fit: contain !important;
+            }
+
+            .head-doodle-sparkle-top,
+            .head-doodle-quotes-right,
+            .head-doodle-quotes-left {
+                opacity: 0;
+                transition: opacity 0.5s ease;
+            }
+            .head-doodle-sparkle-top.assembled,
+            .head-doodle-quotes-right.assembled,
+            .head-doodle-quotes-left.assembled {
+                opacity: 1;
+            }
+
+            /* 4. Tools Card (Settles with 1deg tilt) */
+            .tools-notebook-card {
+                width: 100% !important;
+                max-width: 440px !important;
+                padding: 22px 18px 18px 28px !important;
+            }
+            .tools-notebook-card.assembled {
+                transform: translateY(0) rotate(1deg) !important;
+            }
+
+            .tools-heading {
+                font-size: 17px !important;
+                margin-bottom: 12px !important;
+            }
+
+            .tool-row {
+                gap: 10px !important;
+                margin-bottom: 10px !important;
+                padding: 6px 8px !important;
+            }
+
+            .tool-icon-davinci {
+                width: 32px !important;
+                height: 32px !important;
+                border-radius: 6px !important;
+            }
+
+            .tool-icon-davinci svg {
+                width: 18px !important;
+                height: 18px !important;
+            }
+
+            .tool-info-title {
+                font-size: 13px !important;
+            }
+
+            .tool-info-sub {
+                font-size: 11px !important;
+            }
+
+            /* 5. Sticky Note (Settles with -2deg tilt) */
+            .sticky-note-quote {
+                width: 90% !important;
+                max-width: 340px !important;
+                padding: 16px 20px !important;
+                margin: 0 auto !important;
+            }
+            .sticky-note-quote.assembled {
+                transform: translateY(0) rotate(-2deg) !important;
+            }
+
+            .sticky-note-text {
+                font-size: 16px !important;
+                line-height: 1.35 !important;
+                text-align: center !important;
+            }
+
+            /* 6. Works Polaroid Card (Settles with -1deg tilt) */
+            .works-polaroid-card {
+                width: 100% !important;
+                max-width: 440px !important;
+                padding: 16px 16px 18px 16px !important;
+                margin: 0 auto !important;
+            }
+            .works-polaroid-card.assembled {
+                transform: translateY(0) rotate(-1deg) !important;
+            }
+
+            .works-header-title {
+                font-size: 19px !important;
+                margin-bottom: 12px !important;
+            }
+
+            .works-display-frame {
+                height: 220px !important;
+                border-radius: 6px !important;
+            }
+
+            .works-thumb-strip {
+                display: flex !important;
+                gap: 8px !important;
+                overflow-x: auto !important;
+                padding: 10px 2px 6px 2px !important;
+                width: 100% !important;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .work-mini-thumb {
+                flex: 0 0 54px !important;
+                height: 36px !important;
+                border-radius: 4px !important;
+            }
+
+            .works-footer-bar {
+                margin-top: 10px !important;
+            }
+
+            /* 7. About Me Torn Card (Settles with 1deg tilt) */
             .about-clipped-card {
-                bottom: 3%;
-                right: 3%;
-                width: 46vw;
-                padding: 8px;
+                width: 100% !important;
+                max-width: 440px !important;
+                padding: 24px 20px 48px 22px !important;
+                margin: 0 auto !important;
+            }
+            .about-clipped-card.assembled {
+                transform: translateY(0) rotate(1deg) !important;
+            }
+
+            .about-content-layout {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 16px !important;
             }
 
             .about-heading {
-                font-size: 12px;
+                font-size: 19px !important;
+                margin-bottom: 10px !important;
             }
 
             .about-bio-p {
-                font-size: 8px;
-                line-height: 1.25;
-                margin-bottom: 3px;
+                font-size: 13px !important;
+                line-height: 1.5 !important;
+                margin-bottom: 8px !important;
+            }
+
+            .about-signature {
+                opacity: 0;
+                transform: scale(0.85);
+                transition: all 0.5s ease;
+                font-size: 28px !important;
+                margin-top: 12px !important;
+            }
+            .about-signature.assembled {
+                opacity: 1;
+                transform: scale(1);
             }
 
             .about-polaroid-photo-wrap {
-                width: 38px;
+                opacity: 0;
+                transform: scale(0.8);
+                transition: all 0.5s ease;
+                width: 100px !important;
+                margin: 0 auto !important;
             }
-
-            .camera-illustration-wrap {
-                width: 16vw;
-                top: 38%;
-                left: 32px;
+            .about-polaroid-photo-wrap.assembled {
+                opacity: 1;
+                transform: scale(1);
             }
 
             .earphones-wrap {
-                width: 12vw;
-                bottom: -6px;
-                right: 4px;
+                opacity: 0;
+                transform: scale(0.6);
+                transition: all 0.5s ease;
+                position: absolute !important;
+                width: 80px !important;
+                bottom: 8px !important;
+                right: 8px !important;
+            }
+            .earphones-wrap.assembled {
+                opacity: 1;
+                transform: scale(1);
             }
 
-            .filmstrip-ribbon-wrap {
-                width: 18vw;
-                left: 10px;
-            }
-
+            /* 8. Bottom CTA banner */
             .bottom-cta-banner {
-                bottom: 1.5%;
-                padding: 5px 12px;
+                position: fixed !important;
+                bottom: 12px !important;
+                left: 16px !important;
+                right: 16px !important;
+                width: calc(100% - 32px) !important;
+                max-width: 440px !important;
+                margin: 0 auto !important;
+                z-index: 800 !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+                padding: 10px 16px !important;
+                border-radius: 30px !important;
+            }
+            .bottom-cta-banner.assembled {
+                transform: translateY(0) !important;
+            }
+
+            .cta-tagline {
+                font-size: 11px !important;
             }
 
             .cta-action-pill {
-                padding: 5px 14px;
-                font-size: 10px;
+                padding: 6px 14px !important;
+                font-size: 11px !important;
+            }
+
+            .filmstrip-ribbon-wrap,
+            .scroll-doodle-arrow {
+                display: none !important;
+            }
+
+            /* Modals for Mobile */
+            .video-modal-backdrop,
+            .contact-modal-backdrop {
+                padding: 12px !important;
+            }
+
+            .video-modal-box {
+                max-width: 100% !important;
+                border-radius: 10px !important;
+            }
+
+            .contact-paper-card {
+                max-width: 100% !important;
+                padding: 24px 18px 20px 18px !important;
             }
         }
     </style>
@@ -1978,8 +2248,30 @@
             const percent = Math.round(progress * 100);
 
             // Update Progress HUD
-            scrollPercentText.textContent = `${percent}%`;
-            scrollBarFill.style.width = `${percent}%`;
+            if (scrollPercentText) scrollPercentText.textContent = `${percent}%`;
+            if (scrollBarFill) scrollBarFill.style.width = `${percent}%`;
+
+            if (window.innerWidth <= 860) {
+                // Mobile scroll-driven animation: triggers and settles as each item comes into view
+                const animElements = [
+                    seqTag, seqTitle, seqName, seqSub,
+                    seqCamera, seqHeart, seqPlay, seqStar,
+                    seqHero, seqHeadSparkle, seqHeadQuotesRight, seqHeadQuotesLeft,
+                    seqTools, seqStickyQuote, seqWorks,
+                    seqAbout, seqSignature, seqAboutPolaroid, seqEarphones,
+                    seqCta
+                ];
+
+                const winH = window.innerHeight;
+                animElements.forEach(el => {
+                    if (!el) return;
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top <= winH * 0.94) {
+                        el.classList.add("assembled");
+                    }
+                });
+                return;
+            }
 
             // 0% -> Blank Paper State Hint
             if (progress > 0.03) {
@@ -2069,14 +2361,15 @@
 
             if (isInstantAssembled) {
                 allItems.forEach(item => item.classList.add("assembled"));
-                blankHint.classList.add("hidden");
+                if (blankHint) blankHint.classList.add("hidden");
                 scrollPercentText.textContent = "100%";
                 scrollBarFill.style.width = "100%";
-                skipAssembleBtn.textContent = "🔄 Reset Blank State";
+                skipAssembleBtn.textContent = "🔄 Replay Animation";
                 skipAssembleBtn.style.background = "#4f46e5";
             } else {
                 skipAssembleBtn.textContent = "⚡ Skip to Full View";
                 skipAssembleBtn.style.background = "#191817";
+                allItems.forEach(item => item.classList.remove("assembled"));
                 window.scrollTo({ top: 0, behavior: "smooth" });
                 setTimeout(handleScrollEntrance, 300);
             }
@@ -2236,6 +2529,7 @@
         renderWorksThumbnails();
         updateWorksDisplay();
         handleScrollEntrance();
+        window.addEventListener("resize", handleScrollEntrance, { passive: true });
     </script>
 </body>
 
