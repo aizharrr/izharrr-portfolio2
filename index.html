@@ -1361,431 +1361,377 @@
         }
 
         /* =========================================================
-           MOBILE & TABLET RESPONSIVE TUNING (< 860px)
+           MOBILE & TABLET SINGLE-FRAME PINNED RESPONSIVE TUNING
+           (Faithful 1:1 match to reference mockup poster)
         ========================================================= */
-        @media (max-width: 860px) {
+        @media (max-width: 900px) {
             body {
                 overflow-x: hidden;
                 overflow-y: auto !important;
                 background: #ede8dc;
             }
 
-            .hud-controls {
-                position: fixed !important;
-                top: 10px !important;
-                right: 12px !important;
-                z-index: 950 !important;
-                display: flex !important;
-                gap: 8px !important;
-            }
-
-            .scroll-progress-badge {
-                padding: 4px 8px !important;
-                font-size: 10px !important;
-            }
-
-            .scroll-indicator-bar {
-                width: 24px !important;
-            }
-
-            .skip-btn {
-                padding: 5px 10px !important;
-                font-size: 10px !important;
-            }
-
             .scroll-container {
-                height: auto !important;
-                min-height: 100vh;
-                display: block;
+                height: 500vh !important;
             }
 
             .viewport-frame {
-                position: relative !important;
-                height: auto !important;
-                min-height: 100vh;
+                position: sticky !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                height: 100dvh !important;
+                overflow: hidden !important;
                 display: block !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #ede8dc;
             }
 
             .scrapbook-canvas {
                 position: relative !important;
-                max-width: 100% !important;
-                max-height: none !important;
-                height: auto !important;
-                overflow: visible !important;
-                padding: 36px 16px 120px 16px !important;
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                gap: 28px !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                height: 100dvh !important;
+                max-width: 100vw !important;
+                max-height: 100vh !important;
+                max-height: 100dvh !important;
+                overflow: hidden !important;
+                padding: 0 !important;
+                margin: 0 !important;
                 box-shadow: none !important;
+                border-radius: 0 !important;
             }
 
-            .vintage-margin-line-top {
-                display: none;
-            }
-
-            .vintage-margin-line-left {
-                left: 12px;
-                top: 0;
-                bottom: 0;
-                opacity: 0.25;
-            }
-
-            .blank-scroll-hint {
-                display: none !important;
-            }
-
-            /* Animated Entrance System for Mobile */
-            .scrap-item {
-                position: relative !important;
-                top: auto !important;
-                left: auto !important;
-                right: auto !important;
-                bottom: auto !important;
-                opacity: 0;
-                transform: translateY(30px) scale(0.96);
-                transition: transform 0.65s cubic-bezier(0.18, 0.89, 0.32, 1.15), opacity 0.5s ease;
-                pointer-events: none;
-                width: 100% !important;
-                max-width: 440px !important;
-                margin: 0 auto !important;
-            }
-
+            /* ---- MOBILE: ensure pointer-events work when assembled ---- */
             .scrap-item.assembled {
-                opacity: 1 !important;
-                transform: translateY(0) scale(1) !important;
                 pointer-events: auto !important;
             }
 
-            /* 1. Identity container */
+            .hud-controls {
+                position: fixed !important;
+                top: 6px !important;
+                right: 6px !important;
+                z-index: 950 !important;
+                display: flex !important;
+                gap: 4px !important;
+            }
+
+            .scroll-progress-badge {
+                padding: 3px 7px !important;
+                font-size: 9px !important;
+                border-radius: 10px !important;
+            }
+            .scroll-indicator-bar { width: 16px !important; height: 3px !important; }
+            .skip-btn { padding: 3px 7px !important; font-size: 9px !important; border-radius: 10px !important; }
+
+            .vintage-margin-line-top { display: none !important; }
+            .vintage-margin-line-left { display: none !important; }
+
+            .blank-scroll-hint { padding: 12px 16px !important; }
+            .hint-doodle-icon { font-size: 24px !important; }
+            .hint-text-title { font-size: 18px !important; }
+            .hint-text-sub { font-size: 9px !important; }
+
+            /* 1. TOP-LEFT IDENTITY */
             .identity-container {
-                position: relative !important;
-                top: auto !important;
-                left: auto !important;
-                width: 100% !important;
-                max-width: 440px !important;
-                margin: 0 auto !important;
-                padding: 10px 0 0 14px;
+                position: absolute !important;
+                top: 12px !important;
+                left: 10px !important;
+                width: 44vw !important;
+                max-width: 162px !important;
+                z-index: 20 !important;
+                transform: none !important;
             }
 
             .tag-video-editor {
-                opacity: 0;
-                transform: translateY(-15px);
-                transition: all 0.5s ease;
-                font-size: 13px !important;
-                color: #555;
-            }
-            .tag-video-editor.assembled {
-                opacity: 1;
-                transform: translateY(0);
+                font-size: 10px !important;
+                font-weight: 700 !important;
+                color: #555 !important;
+                letter-spacing: 0.3px !important;
+                margin-bottom: 0 !important;
+                transform: none !important;
             }
 
             .title-video-editor {
-                opacity: 0;
-                transform: translateY(-20px);
-                transition: all 0.55s ease;
-                font-size: clamp(38px, 11vw, 50px) !important;
-                line-height: 0.9 !important;
-                letter-spacing: -1.5px;
-                margin: 4px 0 10px 0 !important;
-            }
-            .title-video-editor.assembled {
-                opacity: 1;
-                transform: translateY(0);
+                font-size: clamp(30px, 8.5vw, 38px) !important;
+                line-height: 0.84 !important;
+                letter-spacing: -1.5px !important;
+                margin: 1px 0 6px 0 !important;
+                color: #111 !important;
+                transform: none !important;
             }
 
             .name-tape-banner {
-                opacity: 0;
-                transform: translateX(-30px);
-                transition: all 0.6s ease;
+                margin-bottom: 5px !important;
+                transform: rotate(-1.5deg) !important;
                 display: inline-block !important;
-                margin-bottom: 10px !important;
-            }
-            .name-tape-banner.assembled {
-                opacity: 1;
-                transform: translateX(0);
             }
 
             .name-tape-text {
-                font-size: 17px !important;
-                padding: 4px 16px !important;
+                font-size: 11px !important;
+                padding: 2px 7px !important;
             }
 
             .identity-subtitle {
-                opacity: 0;
-                transform: translateY(15px);
-                transition: all 0.6s ease;
-                font-size: 13px !important;
-                line-height: 1.4 !important;
-                max-width: 100% !important;
-                color: #444 !important;
-            }
-            .identity-subtitle.assembled {
-                opacity: 1;
-                transform: translateY(0);
+                font-size: 8.5px !important;
+                line-height: 1.32 !important;
+                color: #333 !important;
+                transform: none !important;
+                max-width: 140px !important;
             }
 
-            /* 2. Vintage Camera */
-            .camera-illustration-wrap {
-                width: 110px !important;
-                margin: 0 auto !important;
-                display: flex;
-                justify-content: center;
-            }
-
-            .doodle-badge {
-                opacity: 0;
-                transform: scale(0.5);
-                transition: all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-            }
-            .doodle-badge.assembled {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            /* 3. Hero Cutout Portrait */
-            .hero-sticker-wrap {
-                width: 85% !important;
-                max-width: 320px !important;
-                height: auto !important;
-                margin: 10px auto !important;
-                display: flex;
-                justify-content: center;
+            /* 2. CENTER HERO */
+            .hero-sticker-wrap,
+            .hero-sticker-wrap.assembled {
+                position: absolute !important;
+                top: 8px !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                width: 70vw !important;
+                max-width: 300px !important;
+                height: 66vh !important;
+                max-height: 560px !important;
+                z-index: 10 !important;
+                display: flex !important;
+                align-items: flex-start !important;
+                justify-content: center !important;
             }
 
             .hero-sticker-figure {
                 width: 100% !important;
-                height: auto !important;
+                height: 100% !important;
+                display: flex !important;
+                align-items: flex-start !important;
+                justify-content: center !important;
             }
 
             .hero-sticker-img {
                 width: 100% !important;
-                max-height: 380px !important;
+                height: 100% !important;
                 object-fit: contain !important;
+                object-position: top center !important;
             }
 
             .head-doodle-sparkle-top,
-            .head-doodle-quotes-right,
-            .head-doodle-quotes-left {
-                opacity: 0;
-                transition: opacity 0.5s ease;
-            }
-            .head-doodle-sparkle-top.assembled,
-            .head-doodle-quotes-right.assembled,
-            .head-doodle-quotes-left.assembled {
-                opacity: 1;
-            }
-
-            /* 4. Tools Card (Settles with 1deg tilt) */
-            .tools-notebook-card {
-                width: 100% !important;
-                max-width: 440px !important;
-                padding: 22px 18px 18px 28px !important;
-            }
-            .tools-notebook-card.assembled {
-                transform: translateY(0) rotate(1deg) !important;
-            }
-
-            .tools-heading {
-                font-size: 17px !important;
-                margin-bottom: 12px !important;
-            }
-
-            .tool-row {
-                gap: 10px !important;
-                margin-bottom: 10px !important;
-                padding: 6px 8px !important;
-            }
-
-            .tool-icon-davinci {
-                width: 32px !important;
-                height: 32px !important;
-                border-radius: 6px !important;
-            }
-
-            .tool-icon-davinci svg {
+            .head-doodle-sparkle-top.assembled {
+                transform: scale(1) !important;
                 width: 18px !important;
                 height: 18px !important;
+                top: -10px !important;
+                right: 12px !important;
             }
 
-            .tool-info-title {
-                font-size: 13px !important;
+            .head-doodle-quotes-right,
+            .head-doodle-quotes-right.assembled {
+                transform: scale(1) !important;
+                width: 16px !important;
+                height: 16px !important;
+                right: -8px !important;
+                top: 28px !important;
             }
 
-            .tool-info-sub {
-                font-size: 11px !important;
+            .head-doodle-quotes-left,
+            .head-doodle-quotes-left.assembled {
+                transform: scale(1) !important;
+                width: 16px !important;
+                height: 16px !important;
+                left: -8px !important;
+                top: 28px !important;
             }
 
-            /* 5. Sticky Note (Settles with -2deg tilt) */
-            .sticky-note-quote {
-                width: 90% !important;
-                max-width: 340px !important;
-                padding: 16px 20px !important;
-                margin: 0 auto !important;
+            /* 3. TOP-RIGHT TOOLS CARD */
+            .tools-notebook-card,
+            .tools-notebook-card.assembled {
+                position: absolute !important;
+                top: clamp(55px, 9vh, 90px) !important;
+                right: 8px !important;
+                left: auto !important;
+                width: 41vw !important;
+                max-width: 152px !important;
+                padding: 7px 5px 7px 14px !important;
+                z-index: 20 !important;
+                transform: rotate(1.5deg) !important;
             }
+
+            .tools-tape-top {
+                top: -8px !important;
+                right: -6px !important;
+                width: 48px !important;
+                height: 18px !important;
+                transform: rotate(22deg) !important;
+            }
+
+            .tools-heading { font-size: 11.5px !important; font-weight: 800 !important; margin-bottom: 4px !important; }
+            .tool-row { gap: 5px !important; margin-bottom: 4px !important; padding: 2px 4px !important; }
+            .tool-icon-davinci { width: 20px !important; height: 20px !important; border-radius: 4px !important; flex-shrink: 0 !important; }
+            .tool-icon-davinci svg { width: 12px !important; height: 12px !important; }
+            .tool-info-title { font-size: 8.5px !important; font-weight: 700 !important; line-height: 1.1 !important; }
+            .tool-info-sub { font-size: 7px !important; }
+
+            /* 4. MIDDLE-LEFT CAMERA */
+            .camera-illustration-wrap,
+            .camera-illustration-wrap.assembled {
+                position: absolute !important;
+                top: clamp(185px, 27vh, 240px) !important;
+                left: 8px !important;
+                width: 34vw !important;
+                max-width: 128px !important;
+                z-index: 22 !important;
+                transform: none !important;
+            }
+
+            .doodle-badge.assembled { transform: scale(1) rotate(0deg) !important; }
+            .doodle-badge-heart,
+            .doodle-badge-heart.assembled { width: 20px !important; height: 20px !important; top: -11px !important; right: 6px !important; }
+            .doodle-badge-play,
+            .doodle-badge-play.assembled { width: 18px !important; height: 18px !important; top: 40px !important; right: -9px !important; }
+            .doodle-badge-star,
+            .doodle-badge-star.assembled { width: 17px !important; height: 17px !important; bottom: 2px !important; left: -5px !important; }
+
+            /* 5. MIDDLE-RIGHT STICKY NOTE */
+            .sticky-note-quote,
             .sticky-note-quote.assembled {
-                transform: translateY(0) rotate(-2deg) !important;
+                position: absolute !important;
+                top: clamp(185px, 27.5vh, 245px) !important;
+                right: 8px !important;
+                left: auto !important;
+                width: 37vw !important;
+                max-width: 138px !important;
+                padding: 9px 11px !important;
+                z-index: 22 !important;
+                transform: rotate(-2.5deg) !important;
             }
 
-            .sticky-note-text {
-                font-size: 16px !important;
-                line-height: 1.35 !important;
-                text-align: center !important;
-            }
+            .sticky-tape-top { top: -7px !important; left: 50% !important; transform: translateX(-50%) !important; width: 42px !important; height: 14px !important; }
+            .sticky-note-text { font-size: 10px !important; line-height: 1.22 !important; }
 
-            /* 6. Works Polaroid Card (Settles with -1deg tilt) */
-            .works-polaroid-card {
-                width: 100% !important;
-                max-width: 440px !important;
-                padding: 16px 16px 18px 16px !important;
-                margin: 0 auto !important;
-            }
+            /* 6. BOTTOM-LEFT WORKS CARD */
+            .works-polaroid-card,
             .works-polaroid-card.assembled {
-                transform: translateY(0) rotate(-1deg) !important;
-            }
-
-            .works-header-title {
-                font-size: 19px !important;
-                margin-bottom: 12px !important;
-            }
-
-            .works-display-frame {
-                height: 220px !important;
-                border-radius: 6px !important;
-            }
-
-            .works-thumb-strip {
-                display: flex !important;
-                gap: 8px !important;
-                overflow-x: auto !important;
-                padding: 10px 2px 6px 2px !important;
-                width: 100% !important;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .work-mini-thumb {
-                flex: 0 0 54px !important;
-                height: 36px !important;
-                border-radius: 4px !important;
-            }
-
-            .works-footer-bar {
-                margin-top: 10px !important;
-            }
-
-            /* 7. About Me Torn Card (Settles with 1deg tilt) */
-            .about-clipped-card {
-                width: 100% !important;
-                max-width: 440px !important;
-                padding: 24px 20px 48px 22px !important;
-                margin: 0 auto !important;
-            }
-            .about-clipped-card.assembled {
-                transform: translateY(0) rotate(1deg) !important;
-            }
-
-            .about-content-layout {
+                position: absolute !important;
+                top: clamp(330px, 47vh, 420px) !important;
+                bottom: auto !important;
+                left: 8px !important;
+                right: auto !important;
+                width: 47vw !important;
+                max-width: 195px !important;
+                height: clamp(215px, 38vh, 285px) !important;
+                padding: 7px !important;
+                z-index: 25 !important;
+                transform: rotate(-2deg) !important;
                 display: flex !important;
                 flex-direction: column !important;
-                gap: 16px !important;
             }
 
-            .about-heading {
-                font-size: 19px !important;
-                margin-bottom: 10px !important;
-            }
+            .works-tape-top { top: -8px !important; left: 14px !important; width: 44px !important; height: 16px !important; transform: rotate(-1deg) !important; }
+            .works-header-title { font-size: 12px !important; font-weight: 800 !important; margin-bottom: 4px !important; }
+            .works-display-frame { flex: 1 !important; height: auto !important; min-height: 90px !important; width: 100% !important; border-radius: 4px !important; margin-bottom: 4px !important; }
+            .works-thumb-strip { display: flex !important; gap: 3px !important; overflow-x: auto !important; padding: 2px 0 !important; width: 100% !important; flex-shrink: 0 !important; -webkit-overflow-scrolling: touch; }
+            .work-mini-thumb { flex: 0 0 32px !important; height: 20px !important; border-radius: 3px !important; }
+            .works-footer-bar { margin-top: 3px !important; flex-shrink: 0 !important; }
+            .works-counter { font-size: 9px !important; font-weight: 700 !important; }
+            .work-nav-btn { width: 17px !important; height: 17px !important; font-size: 9px !important; }
 
-            .about-bio-p {
-                font-size: 13px !important;
-                line-height: 1.5 !important;
-                margin-bottom: 8px !important;
-            }
-
-            .about-signature {
-                opacity: 0;
-                transform: scale(0.85);
-                transition: all 0.5s ease;
-                font-size: 28px !important;
-                margin-top: 12px !important;
-            }
-            .about-signature.assembled {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            .about-polaroid-photo-wrap {
-                opacity: 0;
-                transform: scale(0.8);
-                transition: all 0.5s ease;
-                width: 100px !important;
-                margin: 0 auto !important;
-            }
-            .about-polaroid-photo-wrap.assembled {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            .earphones-wrap {
-                opacity: 0;
-                transform: scale(0.6);
-                transition: all 0.5s ease;
+            /* 7. BOTTOM-RIGHT ABOUT CARD */
+            .about-clipped-card,
+            .about-clipped-card.assembled {
                 position: absolute !important;
-                width: 80px !important;
-                bottom: 8px !important;
+                top: clamp(334px, 47.5vh, 424px) !important;
+                bottom: auto !important;
                 right: 8px !important;
+                left: auto !important;
+                width: 47vw !important;
+                max-width: 192px !important;
+                height: clamp(210px, 37.5vh, 280px) !important;
+                padding: 8px 8px 10px 9px !important;
+                z-index: 25 !important;
+                transform: rotate(1.5deg) !important;
+                overflow: visible !important;
             }
+
+            .about-content-layout { position: relative !important; width: 100% !important; height: 100% !important; display: flex !important; flex-direction: column !important; gap: 1px !important; }
+            .about-heading { font-size: 12px !important; font-weight: 800 !important; margin-bottom: 3px !important; }
+            .about-bio-p { font-size: 7.5px !important; line-height: 1.28 !important; margin-bottom: 2px !important; max-width: 58% !important; }
+
+            .about-signature,
+            .about-signature.assembled {
+                font-size: clamp(15px, 4vw, 19px) !important;
+                margin-top: 3px !important;
+                display: inline-block !important;
+                transform: none !important;
+            }
+
+            .about-polaroid-photo-wrap,
+            .about-polaroid-photo-wrap.assembled {
+                position: absolute !important;
+                top: 2px !important;
+                right: 0px !important;
+                width: 42% !important;
+                max-width: 62px !important;
+                z-index: 24 !important;
+                transform: rotate(3deg) scale(1) !important;
+            }
+
+            .about-polaroid-photo-wrap img {
+                mix-blend-mode: multiply !important;
+                width: 100% !important;
+                height: auto !important;
+                display: block !important;
+            }
+
+            .earphones-wrap,
             .earphones-wrap.assembled {
-                opacity: 1;
-                transform: scale(1);
+                position: absolute !important;
+                bottom: -12px !important;
+                right: -6px !important;
+                width: 46% !important;
+                max-width: 68px !important;
+                z-index: 26 !important;
+                transform: rotate(-8deg) scale(1) !important;
             }
 
-            /* 8. Bottom CTA banner */
-            .bottom-cta-banner {
-                position: fixed !important;
-                bottom: 12px !important;
-                left: 16px !important;
-                right: 16px !important;
-                width: calc(100% - 32px) !important;
-                max-width: 440px !important;
-                margin: 0 auto !important;
-                z-index: 800 !important;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
-                padding: 10px 16px !important;
-                border-radius: 30px !important;
-            }
+            /* 8. BOTTOM CTA */
+            .bottom-cta-banner,
             .bottom-cta-banner.assembled {
-                transform: translateY(0) !important;
+                position: absolute !important;
+                bottom: 10px !important;
+                top: auto !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                width: 76vw !important;
+                max-width: 295px !important;
+                padding: 4px 10px !important;
+                border-radius: 16px !important;
+                z-index: 30 !important;
             }
 
-            .cta-tagline {
-                font-size: 11px !important;
-            }
+            .cta-tape-top { top: -7px !important; left: 50% !important; transform: translateX(-50%) rotate(1deg) !important; width: 44px !important; height: 14px !important; }
+            .cta-tagline { font-size: 9px !important; font-weight: 600 !important; }
+            .cta-action-pill { padding: 4px 12px !important; font-size: 9.5px !important; font-weight: 700 !important; }
 
-            .cta-action-pill {
-                padding: 6px 14px !important;
-                font-size: 11px !important;
-            }
-
+            /* 9. FILM STRIP */
             .filmstrip-ribbon-wrap,
-            .scroll-doodle-arrow {
-                display: none !important;
+            .filmstrip-ribbon-wrap.assembled {
+                position: absolute !important;
+                top: clamp(548px, 87vh, 714px) !important;
+                bottom: auto !important;
+                left: 8px !important;
+                width: 68px !important;
+                z-index: 24 !important;
+                display: block !important;
+                transform: rotate(-8deg) scale(1) !important;
+                transform-origin: top left !important;
             }
 
-            /* Modals for Mobile */
+            .scroll-doodle-arrow { display: none !important; }
+
+            /* Modals */
             .video-modal-backdrop,
-            .contact-modal-backdrop {
-                padding: 12px !important;
-            }
-
-            .video-modal-box {
-                max-width: 100% !important;
-                border-radius: 10px !important;
-            }
-
-            .contact-paper-card {
-                max-width: 100% !important;
-                padding: 24px 18px 20px 18px !important;
-            }
+            .contact-modal-backdrop { padding: 10px !important; }
+            .video-modal-box { max-width: 95vw !important; border-radius: 8px !important; }
+            .contact-paper-card { max-width: 92vw !important; padding: 20px 14px 16px 14px !important; }
         }
     </style>
 </head>
@@ -2114,30 +2060,6 @@
          JAVASCRIPT LOGIC: INDIVIDUAL SCROLL ENTRANCES & INTERACTIONS
     ========================================================= -->
     <script>
-        /* =========================================================
-           PORTFOLIO WORKS LIST (Add your future videos here!)
-           =========================================================
-           HOW TO ADD A NEW WORK:
-           1. For YouTube:
-              {
-                  id: 8,
-                  platform: "youtube",
-                  badgeBg: "#ef4444",
-                  thumbnail: "https://img.youtube.com/vi/YOUR_VIDEO_ID/hqdefault.jpg", // or "assets/my-thumbnail.jpg"
-                  embedUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1",
-                  directUrl: "https://youtu.be/YOUR_VIDEO_ID"
-              },
-
-           2. For Instagram Reel / Post:
-              {
-                  id: 8,
-                  platform: "instagram",
-                  badgeBg: "#e1306c",
-                  thumbnail: "assets/work-ig-new.jpg", // or image URL
-                  embedUrl: "https://www.instagram.com/reel/YOUR_REEL_CODE/embed/",
-                  directUrl: "https://www.instagram.com/reel/YOUR_REEL_CODE/"
-              },
-        ========================================================= */
         const portfolioWorks = [
             {
                 id: 1,
@@ -2206,7 +2128,6 @@
         const scrollBarFill = document.getElementById("scrollBarFill");
         const skipAssembleBtn = document.getElementById("skipAssembleBtn");
 
-        // 16 Discrete Individual Sequence Elements
         const seqTag = document.getElementById("seqTag");
         const seqTitle = document.getElementById("seqTitle");
         const seqName = document.getElementById("seqName");
@@ -2236,9 +2157,6 @@
         const seqFilmstrip = document.getElementById("seqFilmstrip");
         const seqScrollPrompt = document.getElementById("seqScrollPrompt");
 
-        /* =========================================================
-           SCROLL-DRIVEN INDIVIDUAL ENTRANCE CONTROLLER
-        ========================================================= */
         function handleScrollEntrance() {
             if (isInstantAssembled) return;
 
@@ -2247,97 +2165,36 @@
             const progress = Math.min(Math.max(scrollTop / (scrollHeight || 1), 0), 1);
             const percent = Math.round(progress * 100);
 
-            // Update Progress HUD
             if (scrollPercentText) scrollPercentText.textContent = `${percent}%`;
             if (scrollBarFill) scrollBarFill.style.width = `${percent}%`;
 
-            if (window.innerWidth <= 860) {
-                // Mobile scroll-driven animation: triggers and settles as each item comes into view
-                const animElements = [
-                    seqTag, seqTitle, seqName, seqSub,
-                    seqCamera, seqHeart, seqPlay, seqStar,
-                    seqHero, seqHeadSparkle, seqHeadQuotesRight, seqHeadQuotesLeft,
-                    seqTools, seqStickyQuote, seqWorks,
-                    seqAbout, seqSignature, seqAboutPolaroid, seqEarphones,
-                    seqCta
-                ];
-
-                const winH = window.innerHeight;
-                animElements.forEach(el => {
-                    if (!el) return;
-                    const rect = el.getBoundingClientRect();
-                    if (rect.top <= winH * 0.94) {
-                        el.classList.add("assembled");
-                    }
-                });
-                return;
-            }
-
-            // 0% -> Blank Paper State Hint
             if (progress > 0.03) {
                 blankHint.classList.add("hidden");
             } else {
                 blankHint.classList.remove("hidden");
             }
 
-            // Step 1: "Video Editor" top label (enters ~5%)
             toggleElement(seqTag, progress >= 0.05);
-
-            // Step 2: "VIDEO EDITOR" bold header (enters ~10%)
             toggleElement(seqTitle, progress >= 0.10);
-
-            // Step 3: "Mohammed Izhar Ahmed" tape brush banner (enters ~16%)
             toggleElement(seqName, progress >= 0.16);
-
-            // Step 4: Subtitle text (enters ~22%)
             toggleElement(seqSub, progress >= 0.22);
-
-            // Step 5: Vintage Film Camera on tripod (enters ~28%)
             toggleElement(seqCamera, progress >= 0.28);
-
-            // Step 6: Heart badge (enters ~33%)
             toggleElement(seqHeart, progress >= 0.33);
-
-            // Step 7: Play badge (enters ~37%)
             toggleElement(seqPlay, progress >= 0.37);
-
-            // Step 8: Star badge (enters ~41%)
             toggleElement(seqStar, progress >= 0.41);
-
-            // Step 9: Hero Cutout Sticker in Center (enters ~46%)
             toggleElement(seqHero, progress >= 0.46);
-
-            // Step 10: Head doodles (enters ~52%)
             toggleElement(seqHeadSparkle, progress >= 0.52);
             toggleElement(seqHeadQuotesRight, progress >= 0.54);
             toggleElement(seqHeadQuotesLeft, progress >= 0.56);
-
-            // Step 11: "TOOLS I USE" notebook sheet (enters ~61%)
             toggleElement(seqTools, progress >= 0.61);
-
-            // Step 12: Sticky note "Turning ideas into..." (enters ~67%)
             toggleElement(seqStickyQuote, progress >= 0.67);
-
-            // Step 13: "MY WORKS" polaroid card (enters ~74%)
             toggleElement(seqWorks, progress >= 0.74);
-
-            // Step 14: "ABOUT ME" torn paper card (enters ~81%)
             toggleElement(seqAbout, progress >= 0.81);
-
-            // Step 15: Clipped Polaroid photo on About card (enters ~85%)
             toggleElement(seqAboutPolaroid, progress >= 0.85);
-
-            // Step 16: Signature (enters ~88%)
             toggleElement(seqSignature, progress >= 0.88);
-
-            // Step 17: Wired earphones taped down (enters ~91%)
             toggleElement(seqEarphones, progress >= 0.91);
-
-            // Step 18: Filmstrip ribbon (enters ~94%)
-            toggleElement(seqFilmstrip, progress >= 0.94);
-            toggleElement(seqScrollPrompt, progress >= 0.94);
-
-            // Step 19: "Get in Touch" CTA bottom center banner (enters ~97%)
+            toggleElement(seqFilmstrip, progress >= 0.76);
+            toggleElement(seqScrollPrompt, progress >= 0.76);
             toggleElement(seqCta, progress >= 0.97);
         }
 
@@ -2352,9 +2209,6 @@
 
         window.addEventListener("scroll", handleScrollEntrance, { passive: true });
 
-        /* =========================================================
-           TOGGLE INSTANT FULL VIEW / ASSEMBLE
-        ========================================================= */
         function toggleInstantAssemble() {
             isInstantAssembled = !isInstantAssembled;
             const allItems = document.querySelectorAll(".scrap-item, .tag-video-editor, .title-video-editor, .name-tape-banner, .identity-subtitle, .doodle-badge, .head-doodle-sparkle-top, .head-doodle-quotes-right, .head-doodle-quotes-left, .about-signature, .about-polaroid-photo-wrap, .earphones-wrap");
@@ -2375,9 +2229,6 @@
             }
         }
 
-        /* =========================================================
-           "MY WORKS" THUMBNAIL STRIP & CAROUSEL (7 WORKS)
-        ========================================================= */
         function renderWorksThumbnails() {
             const strip = document.getElementById("worksThumbStrip");
             if (!strip) return;
@@ -2408,7 +2259,6 @@
             if (counter) counter.textContent = `0${currentWorkIndex + 1} / 0${portfolioWorks.length}`;
             if (modalCounter) modalCounter.textContent = `0${currentWorkIndex + 1} / 0${portfolioWorks.length}`;
 
-            // Update active state in mini thumbnails
             const thumbs = document.querySelectorAll(".work-mini-thumb");
             thumbs.forEach((t, i) => {
                 if (i === currentWorkIndex) t.classList.add("active");
@@ -2437,9 +2287,6 @@
             updateWorksDisplay();
         }
 
-        /* =========================================================
-           VIDEO LIGHTBOX / PLAYER MODAL
-        ========================================================= */
         const videoModal = document.getElementById("videoModalBackdrop");
 
         function openActiveWorkModal() {
@@ -2463,7 +2310,6 @@
                 modalLink.style.background = project.badgeBg;
             }
 
-            // Render active responsive iframe player
             if (modalPlayer) {
                 modalPlayer.innerHTML = `
                     <iframe class="video-player-iframe" 
@@ -2484,7 +2330,7 @@
             document.body.style.overflow = "";
             const modalPlayer = document.getElementById("modalPlayerWrapper");
             if (modalPlayer) {
-                modalPlayer.innerHTML = ""; // Stop video playback and audio immediately
+                modalPlayer.innerHTML = "";
             }
         }
 
@@ -2492,9 +2338,6 @@
             if (e.target === videoModal) closeVideoModal();
         }
 
-        /* =========================================================
-           CONTACT POPUP
-        ========================================================= */
         const contactModal = document.getElementById("contactModalBackdrop");
 
         function openContactModal() {
@@ -2511,7 +2354,6 @@
             if (e.target === contactModal) closeContactModal();
         }
 
-        /* Keyboard Controls */
         document.addEventListener("keydown", (e) => {
             if (e.key === "ArrowRight") {
                 nextWorkItem(videoModal.classList.contains("active"));
@@ -2525,9 +2367,9 @@
             }
         });
 
-        /* Initial Setup */
         renderWorksThumbnails();
         updateWorksDisplay();
+
         handleScrollEntrance();
         window.addEventListener("resize", handleScrollEntrance, { passive: true });
     </script>
